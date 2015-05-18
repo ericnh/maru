@@ -13,4 +13,4 @@ class Maru.Views.UserView extends Backbone.View
 
   render: ->
     @$el.html(@template(@model.toJSON()))
-    return this
+    @

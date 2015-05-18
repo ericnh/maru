@@ -2,6 +2,7 @@ class Maru.Routers.UsersRouter extends Backbone.Router
 	initialize: (options) ->
 		@users = new Maru.Collections.UsersCollection()
 		@users.reset options.users
+		debugger
 
 	routes:
 		'index'    : 'index'
@@ -11,15 +12,15 @@ class Maru.Routers.UsersRouter extends Backbone.Router
 		'.*'       : 'index'
 
 	index: ->
-		@view = Maru.Views.UsersIndexView({collection: @users})
+		@view = new Maru.Views.UsersIndexView({collection: @users})
 
 	newUser: ->
-		@view = Maru.Views.UsersNewView({collection: @users})
+		@view = new Maru.Views.UsersNewView({collection: @users})
 
 	show: (id) ->
 		user = @users.get(id)
-		@view = Maru.Views.UsersShowView({model: user})
+		@view = new Maru.Views.UsersShowView({model: user})
 
 	edit: (id) ->
 		user = @users.get(id)
-		@view = Maru.Views.UsersEditView({model: user})		
+		@view = new Maru.Views.UsersEditView({model: user})		
