@@ -1,8 +1,8 @@
 class Maru.Views.UsersIndexView extends Backbone.View
 
-  el: '#users'
-
 	template: JST["backbone/templates/users/index"]
+
+	el: '#users'
 
 	initialize: ->
 	  @render()
@@ -14,7 +14,9 @@ class Maru.Views.UsersIndexView extends Backbone.View
 	addOne: (model) ->
 	  @view = new Maru.Views.UserView({model: model})
 	  @$el.find('tbody').append @view.render().el
+	  $('#users').find('tbody').append @view.render().el
 
 	render: ->
-	  @$el.html @template()
+	  # @$el.html @template()
+	  $('#users').html @template()
 	  @

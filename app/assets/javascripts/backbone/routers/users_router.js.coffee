@@ -2,7 +2,6 @@ class Maru.Routers.UsersRouter extends Backbone.Router
 	initialize: (options) ->
 		@users = new Maru.Collections.UsersCollection()
 		@users.reset options.users
-		debugger
 
 	routes:
 		'index'    : 'index'
