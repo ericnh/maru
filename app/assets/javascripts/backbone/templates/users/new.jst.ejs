@@ -2,18 +2,23 @@
 
 <form id="new-user" name="user">
   <div class="field">
-    <label for="name"> name:</label>
+    <label for="name"> Name:</label>
     <input type="text" name="name" id="name" >
   </div>
 
   <div class="field">
-    <label for="points"> points:</label>
+    <label for="points"> Points:</label>
     <input type="text" name="points" id="points">
   </div>
 
   <div class="field">
-    <label for="side"> side:</label>
-    <input type="text" name="side" id="side">
+    <label for="side"> Side:</label>
+    <select  name="side" id="side">
+      <option value="">--select a product line--</option>
+      <option value="Rebellion">Rebellion</option>
+      <option value="Empire">Empire</option>
+      <option value="Independent">Independent</option>
+    </select>
   </div>
 
   <div class="actions">

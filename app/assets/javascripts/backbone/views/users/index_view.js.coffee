@@ -17,6 +17,6 @@ class Maru.Views.UsersIndexView extends Backbone.View
 	  $('#users').find('tbody').append @view.render().el
 
 	render: ->
-	  # @$el.html @template()
+	  @$el.html @template() #Redundant?
 	  $('#users').html @template()
 	  @

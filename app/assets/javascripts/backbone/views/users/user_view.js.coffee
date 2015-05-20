@@ -7,9 +7,12 @@ class Maru.Views.UserView extends Backbone.View
   tagName: "tr"
 
   destroy: () ->
-    @model.destroy()
-    this.remove()
-    return false
+    confirmed = confirm('Are you sure you want to delete this user?') #Bug #0007
+    if confirmed
+      this.remove()
+      return false
+    else
+      return true
 
   render: ->
     @$el.html(@template(@model.toJSON()))
