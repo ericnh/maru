@@ -1,0 +1,134 @@
+@import "variables.scss";
+.view-post{
+  .likes-comments{
+    font-size: 12px;
+    // position: absolute;
+    float: left;
+    top: 5px;
+    .num-likes{
+      color: $strong-blue;
+      &:hover, &:active{
+        color: $dark-gray;
+      }
+    }
+    .num-comments, .comma{
+      display: block;
+      color: $medium-gray;
+      cursor: text;
+    }
+  }
+  .post-body-container{
+    max-width: 700px;
+    padding: 0 10px 0 10px;
+    p{
+      margin-top: 30px;
+    }
+    ol, ul{
+      margin: 20px 0 20px 0;
+    }
+  }
+  .likes-container{
+    position:relative;
+    width: 100%;
+    // min-height: 25px;
+  }
+  .media-header{
+    margin: 20px 0 0 0;
+  }
+  .form-wrapper{
+    margin-top:10px;
+  }
+  .dropdown{
+    height: 36px; //~ setting this to match the chevron exactly. it prevents a weird bit of excess. - MC 5.30.2014
+    position: absolute;
+  }
+  .post{
+    // fix so you can see the final dropdown for comments to edit
+    padding-bottom:50px;
+    .post-inner-content{
+      padding: 0;
+      .article-title{
+        width: 88%;
+        margin: 0 0 25px 0;
+        @media screen and (max-width: 600px){
+          font-size: 30px;
+        }
+      }
+      .sponsor img{
+        max-height: 150px;
+      }
+    }
+  }
+  #post-body{
+    margin: 0 0 15px 0;
+    width: calc(100% - 50px); //~ to make room for the chevron drop-down. - MC 5.30.2014
+    // text-align: justify;
+    @media screen and (max-width: 600px){
+      font-size: 14px;
+    }
+  }
+  .form-wrapper{
+    button{
+      height:50px;
+      background-color: $medium-gray;
+      border-color: $medium-gray;
+    }
+  }
+}
+
+//~ small-user has been added to handle new variations on the outputted user display. - NB MC 6.10.2014
+.small-user{
+  height: 38px;
+}
+.comment, .small-user{ //~ Some unique customizations here to the placement of the the dropdown menu and chevron. This is due to accompanying height differences between the comment area and elsewhere where the chevron is featured. - MC 6.4.2014
+  .time-ago{
+    top: -14px;
+  }
+  .short-user{
+    margin-top:0px;
+    height:28px;
+  }
+  .name{
+    margin-top: -3px;
+  }
+  .name, .title, .comment-body{
+    font-size: 13px;
+    line-height: 15px;
+  }
+  .comment-body{
+    width: 88%;
+  }
+  h3, .title{
+    padding: 0 0 4px 35px;
+  }
+  .user-photo-placeholder, img{
+    width: $small-user-thumbnail;
+    height: $small-user-thumbnail;
+    font-size: 10px;
+  }
+}
+
+.create-post{
+  textarea{
+    min-height: 100px;
+  }
+  .post-attachment{
+    button{
+      display: inline;
+    }
+    border-bottom: 1px solid #ffffff;
+  }
+}
+
+.js-add{
+  cursor: pointer;
+  font-size: $small;
+}
+
+.draft-post{
+  color: #ffffff;
+  background: #ff0000;
+  padding: 5px;
+  text-align: center;
+  margin-bottom: 10px;
+}

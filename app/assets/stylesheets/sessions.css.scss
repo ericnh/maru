@@ -1,0 +1,254 @@
+@import "variables.scss";
+
+.event-session, .event-sessions, .event-evaluation, .event-evaluations{
+  .session{
+    @include border-radius(5px);
+    margin: 4px 0 0px 0;
+    padding: 5px 5px 5px 3px;
+    h4{
+      border: none;
+      margin: 0;
+    }
+    a.right-caret{
+      display: block;
+      width: 100%;
+      padding-right: 35px;
+    }
+  }
+  .likes-comments{
+    .num-likes{
+      color: $strong-blue;
+      &:hover, &:active{
+        color: $dark-gray;
+      }
+    }
+    .num-comments, .comma{
+      display: block;
+      color: $medium-gray;
+      cursor: text;
+    }
+  }
+  .right-caret{
+    &:hover, &:active{
+      @include box-shadow($lime-green);
+    }
+  }
+  //~ Time under a session.
+  .session + .time{
+    margin-top: 10px;
+  }
+  //~ Sessions under a time.
+  .time + .session{
+    margin-top: 0px;
+  }
+
+  //~ More than one session together.
+  .session + .session{
+    // margin-top: 0px; // Adjusting for new hover border. - MC 7.23.2014
+    border-top: 1px solid $light-gray;
+  }
+
+  .session-type, .session-time, .room-name{
+    font-size: $small;
+  }
+  .session-type, .session-time{
+    color: $medium-gray;
+  }
+  .session-name{
+    @extend %subheading;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .separator{
+    color: $medium-gray;
+  }
+  .sponsor-section{
+    img, p{
+      display: inline-block;
+      vertical-align:text-top;
+      padding: 5px;
+      margin: 0;
+    }
+    img{max-width: 150px;} //~ Updated to prevent images from stretching out. - MC 6.12.2014
+  }
+  h3.time{
+    @extend %subheading;
+    @extend %underscoring-line;
+    margin: 30px 0 0 0;
+
+  }
+  h4{
+    @extend %underscoring-line;
+    margin: 30px 0 20px 0;
+  }
+  .post{
+    border: none;
+  }
+}
+
+//~ Session list only.
+.event-sessions{
+  p{
+    margin: 2px 0 2px 0;
+  }
+  h3.time{
+    margin: 0;
+  }
+  .session-type{
+    display: inline-block;
+    @extend %ellipsis;
+  }
+  .session{
+    display: table; // Complicated, but necessary to handle the careful placement of the scheduled / attachment icons in this view. - MC 1.9.2015
+    width: 100%;
+    .col-xs-9, .col-xs-3{
+      display: table-cell;
+      float: none;
+      vertical-align: top;
+    }
+    .scheduled-item{
+      font-size: $large;
+      color: $medium-gray;
+      position: absolute;
+      right: 35px;
+      top: 10px;
+    }
+    .post-attachment-icon{ //~ Displays post attachments.
+      position: absolute;
+      right: 30px;
+      bottom: 7px;
+      width: 80%; // This prevents text overlaps on smaller views. If the agenda has many file attachments, more can be viewed on desktop. This is very edge-casey but I've worked to future-proof this pretty well.
+      text-align: right;
+      max-height: 20px;
+      overflow: hidden;
+      color: $lime-green;
+      font-size: $small;
+    }
+  }
+}
+
+//~ Individual session only.
+.event-session, .event-evaluation, .event-evaluations{
+  input{
+    vertical-align: baseline;
+    margin: 0 5px 5px 0;
+  }
+  .answer{
+    padding-bottom: 20px;
+  }
+  .sub-buttons {
+    margin-bottom: 20px;
+    a:hover, a:active{
+      color: $lime-green;
+    }
+    a:hover.scheduled, a:active.scheduled, a:hover.bookmarked, a:active.bookmarked, a:hover.has-note, a:active.has-note{
+      color: $dark-gray;
+    }
+    .btn-all{
+      margin-bottom:2px;
+    }
+  }
+  .calendar-title{
+    @media screen and (max-width: 600px){
+      font-size: 30px;
+    }     
+  }
+  .session-details{
+    margin-top: 25px;
+  }
+  .session-details-top{
+    margin: 25px 0 0 0;
+  }
+  .session-details-bottom{
+    margin: 0 0 25px 0;
+  }
+  .form-wrapper{
+    margin-top: 25px;
+    button{
+      height:50px;
+      background-color: $medium-gray;
+      border-color: $medium-gray;
+    }  
+  }
+  .comment{
+    .time-ago{
+      margin-top: 14px;
+    }
+  }  
+  h2.title{ //~ Keep the h2 here, otherwise it will apply to elements contained in the short-user area further down the page and will fudge the displays. - MC 6.10.2014
+    margin: 8px 0 8px 0;
+  }
+  #post-list{
+    .post{
+      &:hover, &:active{
+        background-color: white;
+      }
+    }
+  }
+  p{
+    width: 90%;
+  }
+  h4{
+    margin: 25px 0 10px 0;
+  }
+  //~ Copied from events.css; it's duplicated code, but it makes sense organizationally to put this here.
+  .like-comment{
+    .like-button, .comment-button{
+      &:hover, &:active{
+        color: $lime-green;
+      }
+    }
+
+    .liked{
+      border-color: $lime-green;
+      background-color: $lime-green;
+      &:hover, &:active{
+        color: #ffffff;
+      }
+    }
+  }
+  .comment-button{
+    display: none; //~ Similar to the view-post page, we are removing the "Comment" button here because the add comment area is plainly visible. - MC 6.12.2011
+  }
+  .survey{
+    .fa-check{
+      color: $lime-green;
+    }
+  }
+}
+
+section.event-session{
+  padding-bottom:50px;
+}
+
+.agenda-day{ //~ Used in several locations, including event_sessions and my_schedule. - MC 6.3.2014
+  background-color: $light-gray;
+  @include border-radius(5px);
+  height: 40px;
+  line-height:40px;
+  padding: 0 10px;
+  margin-top:22px;
+}
+
+.speaker-list, .contributor-list{
+  .speaker-section, .contributor-section{
+    border-bottom: 1px solid $light-gray;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    a, a:hover, a:active{
+      color: $dark-gray; //~ Setting this for the sake of the view_post page, to match the session page. - MC 6.20.2014
+    }
+    &:last-of-type{
+      border-bottom: none;
+    }
+  }
+}
+
+.event-attendees{ // This was once applied globally, but caused problems. But it is needed for the event_users page. Without this, the sorting buttons are either overlapping with the border lines, or they overlap the calendar icon. This is a unique situation but it is necessary. - MC 6.27.2014
+  .sort-user-list{
+    @media screen and (max-width: 600px){
+      margin-top: 0px;
+      position: static;
+    }
+  }
+}

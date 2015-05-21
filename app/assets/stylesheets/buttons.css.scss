@@ -1,0 +1,164 @@
+@import "variables.scss";
+//~ We aren't doing this right now, but we eventually should set the standard size for buttons. Right now the bootstrap default is 14px - but we aren't using that text size anywhere else. My best recommendation would be to change our font size "small" to 14px, and apply that style here so that we are defining it ourselves. - MC 5.16.2014
+.btn{
+}
+
+.btn-all{
+  display: inline-block;
+  width: auto;
+  padding: 0 10px 0 10px;
+  text-align: center;
+  height: 40px;
+  line-height: 35px;
+  font-size: $small;
+  @extend %ellipsis;
+  cursor: pointer;
+  background: #ffffff;
+  border: 2px solid $medium-gray;
+  color: $dark-gray; //~ For when the button is applied to an a tag.
+  @include border-radius(5px);    
+  &.btn-fa{
+    position: relative;
+    width:150px;
+    text-align: left;
+    display: inline-block;
+    padding-right: 40px;
+    i{
+      position: absolute;
+      top: 10px; 
+      right: 10px;
+    }
+    &.comment-button{
+      @media screen and (max-width: 800px){ //~ This is to accomodate neighborhing text such as "200 comments" on the user feed. We need for this to fit without the buttons stacking. - MC 5.28.2014
+        width: 125px;
+        font-size: $tiny;
+      }
+    }
+  }
+  &.btn-like{
+    min-width: 40px;
+    width: 40px;
+    padding:0;
+    text-align: center;
+    margin-right: 1px; //~ There is a 4 pixel space without this; I can't quite discern why. Adding this one pixel brings it up to the requested five. - MC 5.28.2014
+  }
+  //~ Font awesome buttons.
+  .btn-fa{
+    padding:0 10px 0 10px;
+  }
+  //~ Overrides for the default bootstrap buttons. Even if we change it very little, it's still good to have in here for maintenance.
+  &.btn-primary, &.btn-danger, &.btn-success, &.btn-neutral{
+    color: #ffffff;
+    background-color: $strong-blue;
+    border-color: $strong-blue;
+    &:hover, &:active, &:focus{
+      color: $dark-gray;
+      border-color: $strong-blue;
+      background-color: $strong-blue;
+      outline: 0px;
+      -webkit-appearance:none;
+      box-shadow: none;
+    }
+    &:hover, &:active{
+      color: $dark-gray;
+      border-color: $strong-blue;
+      background-color: $strong-blue;
+    }
+    //~ File this under shame.css. Due to late-in-the-game design changes, we are changing the appearance of buttons in several places to be "empty" until they are clicked. To accomplish this, we are simply grabbing the button state and tossing it in as a class, hence why these styles do not follow our normal conventions. - MC 6.11.2014
+    &.joinGroup, &.applyGroup, &.followEvent{
+      background-color: #ffffff;
+      color: $dark-gray;
+      border-color: $medium-gray;
+      &:hover, &:active{
+        color: $strong-blue;
+      }
+    }
+  }
+  &.btn-danger{
+    background-color: $ruby-red;
+    border-color: $ruby-red;
+    &:hover, &:active{
+      border-color: $ruby-red;
+      background-color: $ruby-red;
+    }
+  }
+  &.btn-success{
+    background-color: $lime-green;
+    border-color: $lime-green;
+    &:hover, &:active{
+      border-color: $lime-green;
+      background-color: $lime-green;
+    }
+  }
+  &.btn-neutral{
+    background-color: $medium-gray;
+    border-color: $medium-gray;    
+    &:hover, &:active{
+      border-color: $strong-blue;
+      background-color: $strong-blue;
+    }
+  }
+  &.bookmarked, &.scheduled, &.has-note{
+  background-color: $lime-green;
+  border-color: $lime-green;
+  color: #ffffff;
+    &:hover, &:active{
+      color: $dark-gray;
+    }
+  }
+  &.like-button, &.comment-button{
+    cursor: pointer;
+    &:hover, &:active{
+      color: $strong-blue;
+    }
+    &.liked{
+      &:hover{
+        color: #ffffff;
+      }
+    }
+  }
+  &.liked{
+    border: 2px solid $strong-blue;
+    color: #ffffff;
+    background: $strong-blue;
+  }
+}
+
+//~ this is for a wrapper on a choose file button NB 5-22
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+}
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+}
+
+.js-more-loading-spinner{
+  display: none;
+}
+
+/* Fixes for IE < 8 */
+@media screen\9 {
+  .fileinput-button input {
+    filter: alpha(opacity=0);
+    font-size: 100%;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 1000px){ //~ This is needed because the buttons become too wide on smaller displays, and force a horizontal scrollbar because they are contained in a small 25% width col-xs-3. - MC 5.29.2014
+  .col-xs-3, .col-xs-4{ //~ We are using the xs-4 style on groups.jst - MC 6.5.2014 
+    .btn-all.btn-fa{
+      width: auto;
+      padding-right: 30px;
+    }
+  }
+}

@@ -1,0 +1,257 @@
+@import "variables.scss";
+
+.login-title-logo{
+  display: block;
+  height: 167px;
+  margin: 10px 0 40px 0;
+}
+
+.welcome-text{
+  max-width: 620px;
+  margin: 20px auto 20px auto;
+  h3{
+    text-align: center;
+    font-weight: bold;
+  }
+  p{
+    text-align: left;
+  }
+}
+
+.login-container{
+  margin-top: 40px;
+  display: block;
+  text-align: center;
+}
+.collapse-group{
+  max-width: 620px;
+  margin: 0 auto 0 auto;
+}
+.panel-collapse{
+  color: $light-gray;
+  background: $dark-gray;
+  padding: 10px 10px 0 10px;
+  position: relative;
+  text-align: left;
+  @include border-radius(0 0 10px 10px);
+  margin-top: -30px; //~ Used to somewhat artificially overlap with the "Need Help?" text, and to create a continuity with the gray login box. - MC 5.9.2014
+  p.help-title{
+    display: inline-block;
+    font-size: $tiny;
+    @extend %subheading;
+  }
+  p.help-item{
+    padding: 10px 0 10px 10px;
+    &:not(:last-child){
+      border-bottom: 1px solid lighten($dark-gray, 10%);
+    }
+  }
+  a{
+    color: $light-gray;
+    &:hover, &:active{
+      color: $strong-blue;
+    }
+  }
+  .cancel{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    @include border-radius(30px);
+    background: $light-gray;
+    color: $dark-gray;
+    cursor: pointer;
+    text-align: center;
+    &:hover, &:active{
+      color: $strong-blue;
+    }
+  }
+}
+label{
+  input{
+    display: inline-block;
+    width: 20px;
+  }
+}
+
+.preauth-input-form{
+  max-width: 620px;
+  margin: 0 auto 0 auto;
+  background: $light-gray;
+  text-align: center;
+  @include border-radius(10px);
+  h3{
+    color: #ffffff;
+    background: $strong-blue;
+    padding: 20px;
+    margin-top: 0;
+  }
+  .input-wrapper{
+    display: block;
+    margin: 20px;
+    padding: 10px;
+    background: #ffffff;
+    @include border-radius(10px);
+    input{
+      border: none;
+      &[type="password"]{
+        border-top: 1px solid $light-gray;
+          &.no-radius{ //~ Needed to remove a slight curvature in the top-border that we don't want - only appears on the main login page. But on the forgot_password/reset page, we do still want the top border. - MC 5.29.2014
+            @include border-radius(0);
+        }
+      }
+    }
+    textarea{ //~ A bit redundant, but this is used on the "email support" page.
+      margin: 0 auto 0 auto;
+      width: 100%;
+      border: none;
+      border-top: 1px solid $light-gray;
+      padding: 5px 5px 5px 20px;
+    }
+  }
+  .signin-bottom{
+    margin: 0 20px 20px 20px;
+    font-size: $small;
+    label{
+      display: inline-block;
+      width: calc(50% - 2px); //~ 2px to accomodate the button's border not being calculated. - MC 6.4.2014
+      text-align: left;
+      @media screen and (max-width: 620px){ //~ Needed to fit the text size.
+        font-size: $tiny;
+      }
+    }
+    input.btn-all{
+      display: inline-block;
+      width: calc(50% - 2px); //~ 2px to accomodate the button's border not being calculated. - MC 6.4.2014
+      height: 40px;
+      background: $medium-gray;
+      border-color: $medium-gray;
+      text-align: center;
+      &:hover, &:active{
+        background: $strong-blue;
+        border-color: $strong-blue;
+        color: #ffffff;
+      }
+      @media screen and (max-width: 620px){ //~ Needed to fit the text size.
+        font-size: $tiny;
+      }
+    }
+  }
+}
+
+.email-contact-help-no-auth, .forgot-password, .new-application, .reset-password-form{
+  padding: 100px 10px 20px 10px; //~ On the smallest views, make the left and right margins match the home/login screen.
+}
+
+.reset-password-form{
+  input{
+    padding: 10px;
+  }
+  #password_confirmation{
+    margin-top: 20px;
+    border-top: none;
+  }
+  button.btn-neutral{
+    &:hover, &:active{
+      background-color: $lime-green;
+      border-color: $lime-green;
+    }
+  }
+}
+
+.email-contact-help, .forgot-password, .new-application{ //~ Customizations needed here; maybe I should refactor these styles somewhat, and give a different html structure to the email contact, forgot password, and new application pages. But for now I'll take this approach. - MC 5.15.2014
+  .input-wrapper{
+    margin: 10px;
+    background: inherit;
+    input[type="text"]{
+      padding: 10px 10px 10px 10px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    textarea{
+      padding: 10px;
+      margin-top: 20px;
+      margin-bottom: 0;
+      min-height: 125px;
+    }
+  }
+  button{
+    margin: 0 20px 20px 0;
+    height: 40px;
+    min-width: 120px;
+    background: $medium-gray;
+    &:hover, &:active{
+      background: $lime-green;
+    }
+  }
+}
+
+.before-loggedin-header{
+  width: 100%;
+}
+
+.success-message{
+  text-align: center;
+}
+
+.homepage-sponsor-list{
+  h4{
+    @extend %underscoring-line;
+    width: 90%;
+    max-width: 620px;
+    margin: 40px auto 20px auto;
+  }
+  img{
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+    margin: 0 auto 0 auto;
+    max-height: 120px;
+  }
+}
+
+.app-download-callouts{
+  max-width: 620px;
+  margin: 60px auto 30px auto;
+  .callout{
+    width: 25%;
+    display: inline-block;
+  }
+  @media screen and (max-width: 620px){
+    .callout{ // set for two rows. - MC 9.23.2014
+      width: 100%;
+      display: block;
+      margin: 5px 0 5px 0;
+    }
+  }
+}
+
+.mainpage-footer{
+  font-size: $tiny;
+  text-align: center;
+  margin: 10px 0 10px 0;
+  color: $medium-gray;
+  p{
+    margin: 2px 0 2px 0;
+  }
+  a{
+    color: $medium-gray;
+    text-decoration: underline;
+  }
+  a:hover, a:active{
+    color: $dark-gray;
+  }
+}
+
+.waiting-for-response{ //~ Adding this to the forgot_password page, to accomodate a slow response time on the password reset page. - MC 6.12.2014
+  display: none;
+  float: right;
+  font-size: $larger;
+  padding: 0 20px 20px 0;
+}
+
+.account-already-created-info{
+  max-width: 620px;
+  text-align: left;
+  margin: 20px auto 0 auto;
+}

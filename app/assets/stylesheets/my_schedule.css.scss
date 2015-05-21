@@ -1,0 +1,38 @@
+@import "variables.scss";
+
+.my-schedule{
+  .session{
+    padding: 0 15px 5px 0;
+    @include border-radius(5px);
+  }
+  h4{
+    margin-top: 15px;
+    border-bottom: 1px solid $medium-gray;
+    margin-bottom: 10px;
+  }
+  p{
+    margin-top: 0;
+  }
+  .agenda-day{
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  .track-name{
+    margin: 0 0 8px 0;
+    font-size: $tiny;
+    text-transform: uppercase;
+    color: $medium-gray;
+  }
+  .title{
+    margin: 1px 0 2px 0;
+  }
+  .session-type-room-name{
+    font-size: $tiny;
+    margin-top: 8px 0 15px 0;
+  }
+  .right-caret{
+    &:hover, &:active{
+      @include box-shadow($lime-green);
+    }
+  }
+}

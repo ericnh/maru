@@ -1,0 +1,17 @@
+body.main-content-only{
+  .sidebar-offcanvas, #banner-carousel, .sub-menu, a.back-button{
+    display:none !important;
+  }
+  .main-content-wrapper{
+    width:100%;
+  }
+  #main-content-area{
+    min-height:2000px;
+  }
+  .top-header{
+    width:100%;
+  }
+  #todays-event{
+    display: none;
+  }
+}

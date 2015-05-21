@@ -1,0 +1,1123 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ *= require font-awesome
+ */
+
+@import "bootstrap";
+
+
+/* Variables and Mixins: */
+@import "variables.scss";
+
+/* begin universal styles */
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+// Overwriting bootstrap "selected" blue glow.
+*{
+  outline: none !important; //~ The important tags are needed here. - MC 6.23.2014
+  *:focus{
+    outline: none !important;
+  }
+}
+
+html, body {
+  &.left-menu-open{
+    height: 100%; //~ This is needed for when the menu is opened in tablet/phone view. So for that purpose, this style is now being toggled by javascript in the Access.Views.Helpers file.
+  }
+}
+
+body{
+  background: $light-gray;
+  color: $dark-gray;
+  font-size: $medium;
+  font-family: "Open sans", verdana, helvetica, sans-serif;
+  outline: none; //~ Overriding bootstrap default.
+  &.gray{
+    background: #ffffff;
+  }
+}
+
+a{
+  color: $strong-blue;
+  text-decoration: none;
+  &:hover, &:active, &:focus{
+    color: $dark-gray;
+    text-decoration: none;
+  }
+}
+
+p{
+  margin: 5px 0 5px 0;
+  //~ This fixes long, unbroken links that would force the page to scroll on smaller devices. Applying this to the <a> styles would be more complicated because we would start to deal with block issues; but any text link in an a link should be wrapped in a p tag. This avoids issues of linked elements, buttons, etc. - MC 6.6.2014
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+p + p{
+  margin-top: 10px;
+}
+
+h1, h2, h3, h4{
+  font-family: "Open sans";
+  font-weight: normal;
+  margin: 10px 0 10px 0;
+  padding: 0;
+}
+
+h1{
+  font-size: $biggest-header;
+}
+
+h2{
+  font-size: $big-header;
+}
+
+h3{
+  font-size: $large;
+}
+
+h4{
+  @extend %subheading;
+}
+
+.col-xs-3, .col-xs-6, .col-xs-9, .col-xs-8, .col-xs-4{
+  padding: 0;
+}
+
+.col-sm-4{ //~ This and the next item are needed to force consistency for the element widths. This is part of a fix for the abberant 1px edge on the right side. - MC 6.3.2014
+  width: ceil(33.3333333333%);
+}
+.col-sm-8{
+  width: floor(66.6666666667%);
+}
+
+.newlines {
+  white-space: pre-wrap;
+}
+
+// Adding this to accomodate profiles with imported data, that contains a mix of <p> tags and line breaks. Logic applies this when needed.
+.close-lines{
+  p{
+    display: inline;
+  }
+}
+
+.loader-container{
+  height: 100%;
+}
+
+#full-page-wrapper{
+  border-right: 1px solid $medium-gray;
+  border-left: 1px solid $medium-gray;
+  &.hide-left-sidebar{ // Being added for when a new user logs in with a default password, is bounced to the Change Password page. We want them to have no other access. - MC 8.27.2014
+    .sidebar-container{
+      display: none;
+    }
+    .main-content-wrapper{
+      width: 100%;
+      padding-top: 0;
+    }
+    .top-header{
+      position: relative;
+      width: 100% !important;
+    }
+    #todays-event{
+      display: none !important;
+    }
+  }
+}
+
+#top-container.container{
+  padding: 0; //~ Overriding a bootstrap style that we don't want.
+  background-color: #ffffff;
+  height: 100%; //~ Needed to prevent the gray background bg from being visible.
+  @media screen and (max-width: 800px){ //~ Needed to solve challenges due to the responsive layout. Without this, there are problems with the header behavior. - MC 5.1.2014
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px; //~ This is to give tablet/mobile users a little extra breathing room when the screen is 'flicked' to scroll down. This padding will allow them to easily see and target buttons, etc.
+  }
+}
+
+//~ Taking some of these from the bootstrap default "form-control". Better to take that out of the DOM and define our correct colors, etc.
+input, textarea{
+  box-shadow: none;
+  border: 1px solid $medium-gray;
+  background-color: #ffffff;
+  color: $dark-gray;
+  padding: 5px;
+  width: 100%;
+  display: block;
+  vertical-align: middle;
+  @include border-radius(5px);
+  //~ For the following, the placeholder text alone is getting the fontawesome treatment. This is because when we applied it to the entire textarea, it modified the line height of hte text which I could not fix otherwise. The text was getting sliced off in Safari in particular. - MC 6.5.2014
+  &::-webkit-input-placeholder{font-family: fontawesome, "Open sans"}
+  &:-moz-placeholder{font-family: fontawesome, "Open sans"}
+  &::-moz-placeholder{font-family: fontawesome, "Open sans"}
+  &:-ms-input-placeholder{font-family: fontawesome, "Open sans"}
+  &:focus, &:active{
+    outline: none;
+    box-shadow: none;
+    border-color: $strong-blue;
+  }
+}
+
+input[type="checkbox"],input[type="radio"]{
+  &:focus{
+    box-shadow: 0 0 1px 1px $strong-blue; // Used to provide UX feedback when tabbing across fields. A mere border-color does not register on checkboxes. - MC 8.28.2014
+  }
+}
+
+textarea{
+  overflow: auto;
+}
+
+//~ Adding this to arrange the submit button to remain at the right of any given input form. I need to make some slightly odd styles here to accomodate the maxcharacter warning that was programmed months ago and would be a bit awkward to refactor now. - MC 5.14.2014
+.input-onerow{
+  position: relative;
+  margin-bottom: 25px; //~ Use margin instead of padding here, so the button's vertical position can be correctly calculated.
+  input, textarea, button{
+    display: inline-block;
+    float: none;
+    width: auto; // This line is not superfluous! In a modern browser, this will be overwritten by the next line. But in the event that the user has an older browser, the next line would not render, thus leaving this line in effect. When this happens, it will override a previous declaration of width: 100%, which would cause issues with the textarea running into the submit button. - MC 6.26.2014
+    width: calc(100% - 85px); //~ 85 is needed for small screen sizes.
+  }
+  button{
+    @extend %vertical-align;
+    width: auto;
+    margin-left: 5px;
+  }
+  .maxchar-warning{
+    position: absolute;
+    bottom: -25px; //~ To address the 25px bottom margin as set above.
+    left: 0;
+  }
+}
+
+.maxchar-warning{
+  margin: 0 !important;
+  padding: 0;
+  color: $ruby-red;
+  font-size: $tiny;;
+  line-height: 24px;
+  font-style: italic;
+}
+
+input[type="radio"]{
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin: 0 auto 0 auto;
+}
+
+//~ Drop-down menus.
+select{
+  height: 35px;
+  display: block;
+  width: 100%;
+  border: 1px solid $medium-gray; //~ For some reason, without the border, the height value does not work.
+  box-shadow: none;
+  font-size: $medium;
+  &:focus{
+    border: 1px solid $strong-blue; // When tabbing with a keyboard, provide UX feedback.
+  }
+}
+
+.clickable{
+  cursor: pointer;
+  &:hover, &:active{
+  }
+}
+
+.right-caret{
+  position: relative;
+  border: 2px solid transparent;
+  margin-bottom: 4px; // Adding this to address border/box shadow overlapping issues. - MC 7.23.2014
+  &:after{
+    @extend %vertical-align;
+    color: $medium-gray;
+    right: 10px;
+    content: ">";
+    font-size: $medium;
+  }
+  &:hover, &:active{
+    @include border-radius(5px);
+    @include box-shadow($strong-blue); //~ Adding this as a box-shadow fix - MC 7.23.2014
+    &:after{
+      color: $dark-gray;
+    }
+    a, span{
+      background-color: inherit; //~ Used to deal with a few annoying things on the left menu.
+    }
+  }
+}
+
+//~ This is used to override the bootstrap breakpoint default of 768px (we want 800px for tablet views). This class is currently used once on index.html.erb to control the behavior of the main column as related to the left menu. This appears to be working correctly now. MC 3.26.2014
+//~ Adding col-sm-8 here, to accomodate the new width. Leaving the old one because we may one day revert to that, and I don't want to forget about this here. - MC 5.29.2014
+// This line is CRUCIAL for the app to work. Without this, the left menu, its child elements, and all sorts of other things go haywire. Yes, leave the existing values on other files at 767 or 768. - MC 5.29.2014
+@media screen and (max-width: 800px){
+  .col-sm-9, .col-sm-8{
+    width: 100%;
+  }
+}
+
+.fontawesome{
+  font-family: Fontawesome, "Open sans";
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+
+@font-face{
+  font-family:'EvantaBug';
+  src:url(image_path("fonts/bug.eot"));
+  src:url(image_path("fonts/bug.eot?#iefix")) format("embedded-opentype"),
+  url(image_path("fonts/bug.woff")) format("woff"),
+  url(image_path("fonts/bug.ttf")) format("truetype"),
+  url(image_path("fonts/bug.svg#webfont")) format("svg");
+  font-weight:normal;
+  font-style:normal;
+}
+
+.sidebar-container{
+  padding: 0;
+}
+
+.sub-container.top-header{
+  display: table; //~ Resolving the 1px display bug. - MC 6.3.2014
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: auto;
+  transition:left $open-nav-menu-speed;
+  z-index: 500;
+  background: $strong-blue url(image_path("evanta_bug_bg.png")) no-repeat right top;
+  color: #ffffff;
+  height: 50px;    
+  &.green{ //~ This is applied dynamically with jquery. It is currently for the events and session areas.
+    background: $lime-green url(image_path("evanta_bug_bg.png")) no-repeat right top;
+  }
+  &.gray{
+    background: $dark-gray url(image_path("evanta_bug_bg.png")) no-repeat right top;
+  }
+  .header-title{
+    //~ This section is a font-size matrix. We can customize this further to be more or less specific, and there are duplicates that we can merge. The classes are assigned in Access.Views.Helpers.js.coffee. - MC 3.19.2014
+    line-height: 46px;
+    @extend %ellipsis;
+    text-align: center;
+    &.few-characters{
+      font-size: $large;
+    }
+    &.medium-characters{
+      font-size: $large;
+      @media screen and (max-width: 800px) {
+        font-size: $medium;
+      }
+    }
+    &.many-characters{
+      font-size: $large;
+      @media screen and (max-width: 800px) {
+        font-size: $medium;
+      }
+    }
+    &.most-characters{
+      font-size: $large;
+      @media screen and (max-width: 1000px) {
+        font-size: $medium;
+        width: 65%;
+        margin: 0 auto 0 auto;
+      }
+    }
+  }
+}
+
+.main-content-wrapper{
+  padding-top: 50px; //~ This is to accomodate the fixed header at the top. This may need to be adjusted, or implemented with jQuery. - MC 2.10.2014
+  box-shadow: -10px -10px 15px -10px #999999;
+  padding-left: 0;
+  padding-right: 0;
+  min-height: 940px; //~ Updated: while no longer crucial, this forces the shadow effect between the two content columns to have an appropriate amount of height. - MC 5.20.2014
+  background-color: #ffffff; //~ This should match the body, but it is best to have a solid background here lest we run into problems with it being transparent.
+  &.gray{
+    background-color: #ffffff;
+  }
+}
+#main-content-area{
+  padding: 0 10px 0 10px;
+  .sub-menu{
+    padding: 0 0 20px 0; //~ Needed to deal with the fact that some instances sub-menu are outside of main-content-area, and other instances are child elements of it.
+  }
+}
+
+.main-banner-ad{
+  display: table; //~ This may be crucial in fixing that confounded, thrice-damned, infernal one-pixel display bug regarding the percentage-widths of the .sub-header.top-header and the .main-content-wrapper widths. - MC 5.19.2014
+  width: calc(100% + 1px); //~ This line is also needed for the 1px fix. - MC 6.3.2014
+  @media screen and (max-width: 800px){
+    width: calc(100% + 0px); //~ Not needed on smaller devices.
+  }
+  .carousel-inner{
+    color: $dark-gray;
+    background: #ffffff;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    overflow: hidden;
+    width: 100%;
+    .item{
+      min-height: 40px;
+      max-height: 150px;
+      height: 100%;
+      p{
+        margin: 0;
+      }
+      img{
+        width: 100%;
+        max-height: 150px; // Not redundant. Should the image url be broken, the image height will be 600+ pixels.
+        margin:0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.top-page-spacer{
+  height: 25px; //~ This is used to give all pages breathing room at the top. Because of all the variables that the different pages have (featured content, sub menus, button arrangements, banner ads, etc), this is the safest and surest way to implement this. - MC 5.22.2014
+  display: block;
+}
+
+.sub-menu{
+  padding: 0 10px 0 10px;
+  div{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    float: none; //~ Used to prevent issues on the group_members page, maybe others. - MC 2.12.2014
+    padding-right: 0;
+    padding-left: 0;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    @include border-radius(5px);
+    border: 1px solid $strong-blue;
+    a, .sub-item{
+      @extend %ellipsis;
+      display: table-cell;
+      padding: 10px;
+      color: $strong-blue;
+      position: relative;
+      text-align: center;
+      cursor: pointer;
+      &:not(.active){
+        border-right: 1px solid $strong-blue;
+        &:last-child{
+          border-right: none;
+        }
+      }
+      @media screen and (max-width: 1050px) {
+        padding: 10px 3px 10px 3px;
+      }
+      @media screen and (max-width: 560px) {
+        font-size: $tiny;
+      }
+      &:hover, &:active{
+        color: $dark-gray;
+      }
+      &.active{ //~ This is for the class active, not the click state.
+        background: $strong-blue;
+        color: #ffffff;
+        &:hover, &:active{
+          color: $dark-gray;
+        }
+      }
+      input[type=file]{
+        /* The styles here are highly experimental. Apparently it is very tricky to style this type of input; we may end up doing something much more evasive with jquery, hiding this, making a pseudo element, etc. - MC 2.26.2014 */
+        @extend %ellipsis;
+        border: 2px solid $dark-gray;
+        box-shadow: 1px 1px 2px 2px $dark-gray;
+        padding: 3px;
+        @media screen and (max-width: 991px) {
+          max-width: 90%;
+        }        
+        margin: 0 auto 0 auto;
+      }
+    }
+  }
+}
+.event-evaluation{
+  iframe{
+    width: 95%;
+  }
+}
+
+.clear{
+  clear: both;
+}
+.splash-content, .initial-loader{
+  text-align: center;
+  background-color: $strong-blue;
+  width:100%;
+  height:100%;
+  position: absolute;
+  &.event{
+    background-color: $lime-green;
+  }
+}
+
+.splash-screen-loading{
+  text-align: center;
+  .fa-refresh, .fa-spinner{
+    font-size: 40px;
+    color: #ffffff;
+  }
+}
+
+.loading-content{
+  font-size: 40px;
+  text-align: center;
+  color: $dark-gray;
+  transition: opacity 1s;
+  opacity: 1;
+
+  -moz-animation-name: fadeIn;
+  -moz-animation-iteration-count: once;
+  -moz-animation-timing-function: ease-in;
+  -moz-animation-duration: 4s;
+
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-iteration-count: once;
+  -webkit-animation-timing-function: ease-in;
+  -webkit-animation-duration: 4s;
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.loading-content:active{
+  transition: opacity 1s;
+  opacity: 1;
+}
+
+.time-ago{ //~ The styles for this element have now been standardized through the site. - MC 5.19.2014
+  color: $medium-gray;
+  font-size: $tiny;
+  clear: both;
+  text-align: left;
+  min-width: 44px; //~ It was determined that 44px here allows for the accomodation of up to three digits, which is enough.
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+//~ This is needed in various places; not all users are within a user list. For example, speaker_user, event_speaker, maybe elsewhere.
+.short-user, .user-thumbnail-only{
+  h3{
+    font-size: $medium;
+  }
+  height: $standard-user-thumbnail;
+  position: relative;
+  padding-top: 2px;
+  img, .user-photo-placeholder{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: $standard-user-thumbnail;
+    width: $standard-user-thumbnail;
+    @include border-radius(5px);
+  }
+  .user-photo-placeholder{
+    font-size: $large;
+    background: $strong-blue;
+    color: #ffffff;
+    display: block;
+    span{
+      width: 100%;
+      text-align: center;
+      @extend %vertical-align;
+    }
+  }
+  h3, p{
+    padding: 0 5px 0 $standard-user-thumbnail + $distance-from-thumbnail;
+    @extend %ellipsis;
+    margin: 0;
+    text-transform: capitalize;
+    span{ //~ Neded for user lists; taking away the uppercase for title/org etc. - MC 5.12.2014
+      text-transform: capitalize;
+    }
+  }
+  h3{
+    padding-bottom: 3px;
+  }
+  .name{
+    text-transform: initial;
+  }
+  .title{
+    @extend %subheading;
+    text-transform: initial;
+    line-height: 17px;
+    margin-top: -4px;
+  }
+  .title, .org{
+    padding-top: 1px;
+    font-size: $smaller;
+  }
+  .moderator{
+    display:none;
+  }
+}
+
+.event-session:not(.event-speaker), .event-evaluation:not(.event-speaker){
+  .moderator {
+    display: block;
+    position: absolute;
+    top: 43px;
+    font-size: 9px;
+    background-color: $orange;
+    width: 50px;
+    text-align: center;
+    padding: 0px;
+    border-radius: 0 0 5px 5px;
+    color: black;
+  }
+}
+
+.user-thumbnail-only{ //~ Currently used on the message_view page. We may end up using this elsewhere. We'll see. - MC 5.12.2014
+  width: $standard-user-thumbnail;
+  display: inline-block;
+  padding: 0;
+}
+
+//~ The .user module is used in a variety of places. Here, the universal styles are applied. Following this style declaration, customizations will be declared where needed. - MC 3.13.2014
+
+.user{ //~ This is used to vertically-align several elements such as User Connection Status, etc..
+  margin-bottom: 10px;
+  .btn{
+    margin-bottom: 5px;
+  }
+  .col-xs-9, .col-xs-3{
+    @extend %vertical-align-two-columns;
+  }
+}
+
+.user-connections, .group-members{
+  h4{
+    @extend %underscoring-line;
+  }
+}
+
+.pending-connection{
+  color: $medium-gray;
+  width: 80%;
+  text-align: center;
+}
+
+a.back-button{
+  display: inline-block;
+  color: #ffffff;
+  @include border-radius(5px);
+  @extend %vertical-align;
+  // padding: 5px 10px 5px 10px;
+  padding: 10px 15px 10px 15px;
+  margin-left: 0px;
+  cursor: pointer;
+  font-family: Fontawesome, "Open sans";
+  font-size: $large;
+  &:before{
+    content: " \f060";
+  }
+  &:hover, &:active{
+    background: #ffffff;
+    color: $strong-blue;
+  }
+}
+
+.showLeftPush, .right-titlebar-link{
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px 15px 8px 15px;
+  left: 0px;
+  @extend %vertical-align;
+  min-width: 40px;
+  min-height: 40px;
+  text-align: center;
+  line-height: 34px;
+  font-size: 25px;
+  &:hover, &:active{
+    cursor: pointer;
+    background: #ffffff;
+    color: $strong-blue;
+    @include border-radius(5px);
+  }
+}
+
+.right-titlebar-link{
+  right: 0px;
+  left: auto;
+  &.in-main-view{
+    //~ This is a sad hack; because this element is in the template, which is tied to a view, we were unable to 'properly' place this in the header's titlebar area. So we need to artificially force this up there. It's pretty borderline shame.css kind of stuff. But we don't know of another way. - MC NB 5.16.2014
+    //~ Currently used on the notifications page, and the pages where you may have notes to email: view_note, view_notes, etc
+    position: absolute;
+    top: 25px;
+    z-index: 10000;
+  }
+  &.headerbutton{ //~ This is for any buttons that get generated within the header; it prevents superfluous white background color. Right now it is happening on the group pages if you are pending, or can join it. - MC 6.20.2014
+    &:not(button){
+      cursor: default; //~ Deals with a minor padding issue for the buttons, and sets an appropriate cursor for the "Pending" text since no action can be taken. - MC
+    }
+    .pending-request{
+      font-size: $small;
+      color: $medium-gray;
+      border: 2px solid $medium-gray;
+      @include border-radius(5px);
+      padding: 0 10px 0 10px;
+      &:hover, &:active{
+        color: $medium-gray;
+      }
+    }
+    &:hover, &:active{
+      background: transparent;
+    }
+  }
+  .group-owner{
+    display: none; // We don't need this information in the header bar. - MC 9.8.2014
+  }
+}
+
+//~ For our internal debugging tool:
+#evanta-debugger{
+    position: fixed;
+    top: 10px;
+    left: 10px;
+  .fa-bug{
+    display: inline-block;
+    padding: 10px;
+    @include border-radius(5px);
+    font-size: 50px;
+    cursor: pointer;
+    color: $light-gray;
+    &.debugging{
+      color: $strong-blue;
+    }
+    &:hover{
+      color: #ffffff;
+      background-color: $strong-blue;
+    }
+  }
+  #endpoint-debug-container{
+    font-size: $medium;
+    display: none;
+    &.debugging{
+      display: block;
+    }
+  }
+}
+
+.submit-button{
+  float: right;
+}
+
+.connected-status{
+  white-space: nowrap; //~ Prevents the user icon and the checkmark icon from wrapping (Can occur on mobile) - MC 6.11.2014
+  color: $medium-gray;
+  cursor: pointer;
+  float: right;
+  margin-right: 50px;
+}
+
+//~ Only active on smaller screens. Defined in offcanvas.css; doing this here reduces the need for JS on the backbutton method.
+.combined-notifications-count{
+  display: none;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 19px;
+  height: 19px;
+  font-size: $tiny;
+  line-height: 20px;
+  text-align: center;
+  background-color: $ruby-red;
+  color: #ffffff;
+  @include border-radius(10px);
+  z-index: 10;
+  cursor: pointer;
+}
+
+.origin{ //~ used to be post-origin.
+  @extend %subheading;
+  font-size: $tiny;
+  margin: 0;
+}
+
+.sort-user-list{
+  @include border-radius(5px);
+  border: 2px solid $strong-blue;
+  display: inline-block;
+  height: 46px;
+  position:absolute;
+  right: 10px;
+  margin-top: -70px;
+  span{
+    padding: 10px;
+    display: inline-block;
+    width: auto;
+    color: $strong-blue;
+    background: #ffffff;
+    &.active{
+      color: #ffffff;
+      background: $strong-blue;
+    }
+  }
+}
+.user-connections{
+  .sort-user-list{
+    margin-top: -40px;
+  }
+  &.my-connections{
+    .sort-user-list{
+      margin-top: -120px;
+    }
+    #js-filter-user-list{
+      margin-top: 50px;
+    }
+  }
+  @media screen and (max-width: 600px){
+    margin-top: 10px;
+  }
+}
+
+.view-likes{
+  .sort-user-list{
+    position: static;
+    margin-top: 0px;
+  }
+}
+.js-paginator-more{
+  display: block;
+  margin: 10px auto 10px auto;
+  min-width: 140px;
+}
+
+.fa-chevron-down{
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  right: 0;
+  @include border-radius(5px);
+  &:hover, &:active{
+    color: #ffffff;
+    background-color: $strong-blue;
+  }
+}
+
+.dropdown{
+  top: 17px;
+  right: 10px; //~ Some of these styles have been adjusted to track changes in the time-ago style. As that has shifted, so too must these shift. - MC 5.23.2014
+  z-index: 100;
+  font-size: $medium;
+  height: 36px;
+  @include border-radius(5px);
+  box-shadow: none;
+  border: none;
+  .fa-chevron-down{
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+    right: 0;
+    &:hover, &:active{
+      color: #ffffff;
+      background-color: $strong-blue;
+    }
+  }
+}
+
+.open{
+  .dropdown{
+    background: $darker-blue; //~ When a drop-down menu is active, keep the caret shaded a different color.
+    color: #ffffff;
+    border-radius: 5px 5px 0 0;
+  }
+}
+
+.dropdown-menu{ //~ Some of these styles may seem unecessary, but they are to override bootstrap defaults. We are using the bootstrap-powered functionality, so it's best to simply fix the css than to re-write the functionality.
+  background-color: $darker-blue;
+  border-radius: 5px 0 5px 5px;
+  position: absolute;
+  box-shadow: none;
+  border: none;
+  top: 51px;
+  right: 10px;
+  left: inherit;
+  padding: 0;
+  overflow: hidden;
+  a + a{
+    border-top: 1px solid $strong-blue;
+  }
+  a{
+    height: 45px;
+    line-height: 15px;
+    padding: 15px 10px 15px 10px;
+    width: inherit;
+    display: block;
+    text-align: left;
+    color: #ffffff;
+    cursor: pointer; //~ Needed on the view_post page for some reason.
+    i{
+      float:right;
+    }
+    &:hover, &:active{
+      background-color: $strong-blue;
+    }
+  }
+}
+.form-wrapper{
+  background: $light-gray;
+  border-radius: 8px;
+  padding: 10px;
+  button{
+    height: 80%;
+    width: 83px;
+  }
+  @media screen and (max-width: 600px){
+    padding: 5px;
+  }
+}
+
+.sub-menu{
+  margin-top: -20px;
+}
+
+.user-activity-wrapper{
+  margin-top: 15px;
+  .user-activity{
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    @include border-radius(5px);
+    background: $light-gray;
+    a{
+      display: table-cell;
+      padding: 10px 5px 10px 5px;
+      position: relative;
+      color: $dark-gray;
+      font-size: $tiny;
+      line-height: 14px;
+      text-align: center;
+      border-right: 1px solid #ffffff;
+      span{
+        display: block;
+        font-size: $large;
+        line-height: normal;
+      }
+      &:last-child{
+        border-right: none;
+      }
+      &:hover, &:active{
+        color: $strong-blue;
+      }
+    }
+  }
+}
+
+.media-small-text{
+  @media screen and (max-width: 600px){
+    font-size: 14px;
+  }
+}
+
+.input-title, label{
+  font-weight: normal;
+  display: block;
+  font-size: $small;
+  margin-top: 13px;
+  margin-bottom: 0;
+}
+
+.search-page{
+  button{
+    height: 34px;
+    line-height: 30px;
+  }
+ .input-onerow{
+    margin-bottom: 30px;
+  }
+  #event-list{
+    p{
+      @extend %separating-line;
+      padding: 15px 0 15px 0;
+      &:first-of-type{
+        padding-top: 0;
+      }
+    }
+  }
+}
+
+.num-likes{
+  cursor: pointer;
+}
+
+.group-members{
+  .col-xs-3.connect{
+    button{
+      &:hover, &:active{
+        background: $strong-blue;
+        border-color: $strong-blue;
+        color: #ffffff;
+      }
+      @media screen and (max-width: 991px){ //~ On smaller views, these buttons stack awkwardly. Trying to get them nicer. - MC 6.4.2014
+        display: block;
+        &:first-of-type{
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+  .user{
+    padding-bottom: 5px;
+    border-bottom: 1px solid $medium-gray;
+    &:last-of-type{
+      border: none;
+    }
+  }
+}
+
+.group-invites{
+  button{
+    &:hover, &:active{
+      color: $strong-blue;
+    }
+  }
+}
+
+.footnote{
+  font-size: $tiny;
+}
+
+.required-field{
+  color: $ruby-red;
+}
+
+.membership-criteria{
+  h4{
+    text-transform: none;
+  }
+  .toggle-criteria{
+    color: $strong-blue;
+    cursor: pointer;
+    &:hover, &:active{
+      color: $dark-gray;
+    }
+  }
+  .toggle-hide.hide{
+    display: none;
+  }
+}
+
+#js-prize-winner-canvas{
+  background: #eeeeee;
+}
+
+.event-prizes, .prize-entrants{
+  .footnote{
+    color: $medium-gray;
+  }
+  .entered-prize-codes{
+    .fa-chevron-down{
+      overflow: initial;
+    }
+    a:not(.collapsed) .fa-chevron-down{
+      -o-transform: rotate(270deg);
+      -ms-transform: rotate(270deg);
+      -webkit-transform: rotate(270deg);
+      -moz-transform: rotate(270deg);
+      transform: rotate(270deg);
+    }
+  }
+  .prize-code-status{
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+    .col-xs-9, .col-xs-3{
+      @extend %vertical-align-two-columns;
+      img{
+        max-width: 150px;
+      }
+      .fa-check{
+        font-size: $larger;
+        color: $lime-green;
+      }
+    }
+  }
+  .prize-code-status + .prize-code-status:not(last-of-type){
+    border-top: 1px solid $light-gray;
+  }
+}
+
+.app-callout{
+  background: $light-gray;
+  height: 100px;
+  border: 1px solid $medium-gray;
+  padding: 9px 50px 5px 5px;
+  position: relative;
+  margin: 10px 10px 30px 10px;
+  z-index: 0;
+  line-height: 18px;
+  .close{
+    position: absolute;
+    top: 20px;
+    left: -10px;
+    padding: 20px; // Need a big click target.
+    color: $dark-gray;
+    z-index: 50;
+    opacity: 1;
+    font-weight: normal;
+  }
+  .app-logo{
+    background: #ffffff url(image_path("loginTitleEvanta.png")) no-repeat center center;
+    background-size: 85%;
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    left: 30px;
+    top: 10px;
+    @include border-radius(15px);
+    border: 1px solid $medium-gray;
+  }
+  p{
+    padding-left: 110px;
+    color: $dark-gray;
+    margin-top: 0px;
+  }
+  p + p{
+    font-size: $small;
+  }
+  .view{
+    color: $strong-blue;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+  }
+}
+
+// Adding support for placeholders on older browsers.
+.placeholder{
+  color: $medium-gray;
+}
+
+/* end universal styles */

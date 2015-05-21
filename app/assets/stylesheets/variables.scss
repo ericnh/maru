@@ -1,0 +1,148 @@
+// Colors
+
+$strong-blue: #00a3e4;
+$darker-blue: darken($strong-blue, 10%);
+$evanta-bug-blue: #008bc2;
+
+$light-gray: #eaeaea;
+$medium-gray: #c0c0c0;
+$dark-gray: #404040;
+
+$lime-green: #38bb15;
+$darker-green: darken($lime-green, 10%);
+
+$orange: #feb52b;
+$ruby-red: #ff2e2e;
+
+// Font sizes
+
+$biggest-header: 48px;
+$big-header: 36px;
+$larger: 28px;
+$large: 20px;
+$medium: 16px;
+$small: 14px;
+$smaller: 13px;
+$tiny: 12px;
+
+// Common user elements
+$small-user-thumbnail: 28px; // This is used in the feed view.
+$standard-user-thumbnail: 50px; // Most thumbnails will be this size.
+$leftnav-user-thumbnail: 65px; // This size is used only on the left navigation.
+$profile-user-thumbnail: 100px; // This size is used only on the profile page.
+$distance-from-thumbnail: 15px; // This is the distance that the adjacent text will be from the image.
+
+$open-nav-menu-speed: .1s;
+
+// "Placeholder" classes that get extended elsewhere; better to use these than classes. (http://roytomeij.com/blog/2013/should-you-use-a-sass-mixin-or-extend.html)
+
+%box{
+  padding: 5px;
+  margin-bottom: 10px;
+  display: block;
+  border: 2px solid $strong-blue;
+}
+
+//~ Used for underlining/underscoring an element. The items above and below the line are related.
+%underscoring-line{
+  border-bottom: 1px solid $medium-gray;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  margin: 25px 0 10px 0;
+}
+
+//~ Used for separating elements. The items above and below the line are not related.
+%separating-line{
+  // padding: 0 5px 0 5px;
+  border-bottom: 1px solid $light-gray;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  margin-bottom: 0;
+  display: block;
+}
+
+%subheading{
+  font-size: $small;
+  text-transform: uppercase;
+  color: $medium-gray;
+  letter-spacing: .75px;
+}
+
+// This method is perfect for single elements that need to be positioned vertically inside of a larger element; a single item in a larger element, or anything applied with :after that needs to be centered.
+%vertical-align { // The parent element needs to have position: relative.
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(0%, -50%);
+  -moz-transform: translate(0%, -50%);
+  -ms-transform: translate(0%, -50%);
+  transform: translate(0%, -50%);
+}
+
+%bullseye-center { // The parent element needs to have position: relative.
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+// This method is perfect for our 2-column layouts; extend this elsewhere in the appropriate .col-3, .col-6, and .col-9 classes. Use them selectively where needed, for things like connected status, buttons, etc.
+// A reference: http://stackoverflow.com/questions/20005278/twitter-bootstrap-3-vertically-center-content
+%vertical-align-two-columns{
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: -4px; // Needed to deal with spacing issues.
+}
+
+%ellipsis{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+//~ Universal mixins
+
+//~ We may not need these browser prefixes, as discussed here (http://shouldiprefix.com/), but I'll leave them here for now just in case.
+@mixin border-radius($radius){
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
+  border-radius: $radius;
+  overflow: hidden; // Used to deal with child content that bleeds out of the corners. There may be a different/better solution? - MC 4.9.2014
+}
+
+@mixin box-shadow($color){
+  -webkit-box-shadow: 0 0 3px 1px $color;
+  -moz-box-shadow: 0 0 3px 1px $color;
+  -ms-box-shadow: 0 0 3px 1px $color;
+  -o-box-shadow: 0 0 3px 1px $color;
+  box-shadow: 0 0 3px 1px $color;
+}
+
+
+//~ My current plan is to simply have all images at 2x size, and scale them down with css across the board. I haven't yet determined if there would be an appropriate mixin for this - I believe I could craft something useful. - MC 5.19.2014
+//~ If we come across images that are too large and result in an inconveniently large file size, we could use a different mixin to load one of two different image sizes depending on the media query result. - MC 5.19.2014
+
+// @mixin image-2x($width, $height) {
+//   @media only screen and (-webkit-min-device-pixel-ratio: 2),
+//   only screen and (min--moz-device-pixel-ratio: 2),
+//   only screen and (-o-min-device-pixel-ratio: 2/1),
+//   only screen and (min-device-pixel-ratio: 2),
+//   only screen and (min-resolution: 192dpi),
+//   only screen and (min-resolution: 2dppx) { 
+//     background-size: $width $height;
+//   }
+// }
+
+// usage:
+
+// div.logo {
+//   background: url("logo.png") no-repeat;
+//   @include image-2x("logo.png", 100px, 25px);
+// }

@@ -1,0 +1,292 @@
+@import "variables.scss";
+
+//~ There are vertically responsive elements here. The min-width ensures that this will not reflect on the mobile/tablet views - those menus will scroll. This is for desktop only.
+.left-menu-top-wrapper-bar{
+  background: $strong-blue;
+}
+#sidebar.left{
+  background-color: #ffffff;
+  padding-right: 0;
+  padding-left: 0;
+  position: fixed;
+  overflow-x: hidden;
+  height: 100%;
+  a, .js-event-go-away{
+    display: block;
+    color: $dark-gray;
+    font-size: $medium;
+    padding: 15px 25px 15px 5px;
+    @extend %ellipsis;
+    position: relative;
+    &.todays-event{ //~ Unique customizations here, because we have the main text and sub-text flipped around for the Today's Event button.
+      color: $lime-green;
+      .todays-event-title{
+        margin-left: 45px;
+        margin-top: 1px;
+      }
+      .small-subtext{
+        color: $lime-green;
+        margin-top: -35px;
+      }
+    }
+    &.menu-event{
+      &:hover, &:active{
+        @include box-shadow($strong-blue);
+      }
+      &:after{
+        font-family: Fontawesome, "Open sans";
+        content: " \f196";
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        color: $medium-gray;
+        font-size: $large;
+        margin-top: -13px; //~ Needs to be half the height of the element. An old classic trick, but it works.
+      }
+    }
+    .short-user{
+      height: $leftnav-user-thumbnail;
+      padding-top: 2px;
+      img, .user-photo-placeholder{
+        height: $leftnav-user-thumbnail;
+        width: $leftnav-user-thumbnail;
+      }
+      h3, p{
+        padding: 0 5px 5px $leftnav-user-thumbnail + 10px; //~ This has been customized here, to 10px from the standard 15px. - MC 6.2.2014 // Adding 5px at the top, to accomodate new variations and a refactor of the styles. - MC 6.10.2014 // Changing this 5px to be at the bottom instead of the top, to prevent letters from getting cut off. - MC 6.12.2014
+      }
+    }
+    p.title{
+      @extend %subheading;
+      @extend %ellipsis;
+      text-transform: initial;
+      line-height: 18px; //~ Prevent letters getting cut off. - MC 6.12.2014
+      .comma{
+        display: block;
+        visibility: hidden;
+        height: 0;
+      }
+    }
+    .name{
+      font-size: $medium;
+      line-height: 20px;
+    }
+    .main-title{
+      width: 65%; //~ Got this number basically by trial and error. This is a good width on longer views but will always display the (Open) group type with enough room. This could change, though. - MC 3.27.2014
+      margin-top: -15px;
+      min-width: 115px;
+      @extend %ellipsis;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .small-subtext{
+      font-size: $tiny;
+      color: $medium-gray;
+      display: block;
+      margin-left: 45px;
+      line-height: 12px;
+      margin-top: -13px;
+      i{
+        padding-left: 2px; //~ For a total spacing effect, of 8 pixels or so. - MC 6.2.2014
+      }
+    }
+    .others-icon, .groups-icon, .events-icon{
+      color: #ffffff;
+      padding: 10px;
+      vertical-align: middle;
+      width: 40px;
+      text-align: center;
+      @include border-radius(5px);
+    }
+    .others-icon{
+      background: $strong-blue;
+    }
+    .groups-icon{
+      background: $ruby-red;
+    }
+    .events-icon{
+      background: $lime-green;
+    }
+    @media screen and (min-width: 800px){
+      &.right-caret:after{
+        content: ""; //~ This takes off the right caret image on desktop view.
+      }
+    }
+  }
+  .js-event-go-away{
+    padding: 0;    
+  }
+  .user-activity-wrapper{ //~ A handful of customizations that are unique to the left menu. Don't remove without care. - MC 5.23.2014
+    margin: 0 5px 10px 5px;
+    .user-activity{
+      a{
+        display: table-cell;
+        text-align: center;
+        padding: 9px 0 10px 0;
+        font-size: $tiny;
+      }
+    }    
+  }
+
+  .left-menu-top-wrapper-bar{
+    height: 50px;
+    .logo-detail{
+      // background: url(image_path("e365logo_nav.png")) no-repeat center center;
+      background: #ffffff url(image_path("loginTitleEvanta.png")) no-repeat 10px center;
+      width: 70px;
+      height: 50px;
+      // background-size: contain; # Making changes here. - MC 9.4.2014
+      background-size: 75%;
+      float: left;
+      margin: -1px 0 1px 0;
+      -webkit-border-radius: 0 15px 15px 0;
+      -moz-border-radius: 0 15px 15px 0;
+      -ms-border-radius: 0 15px 15px 0;
+      -o-border-radius: 0 15px 15px 0;
+      border-radius: 0 15px 15px 0;
+      overflow: hidden;
+    }
+    .left-menu-top-icon-bar{
+      color: #ffffff;
+      margin: 0;
+      background-color: $strong-blue;
+      display: table;
+      table-layout: fixed;
+      width: 70%;
+      float: right;
+      .icon-wrapper{ //~ Needed to allow for nuanced padding.
+        display: table-cell;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        .left-bar-icon{
+          background-color: inherit;
+          font-size: 23px;
+          line-height: 23px;
+          color: #ffffff;
+          margin: 3px auto 0 auto;
+          border: none;
+          overflow: visible;
+          @include border-radius(5px);
+          padding: 10px 8px 10px 8px;
+          max-width: 60px; //~ This should allow the button width to expand slightly with different views, but not too much.
+          &:hover, &:active{
+            cursor: pointer;
+            background-color: #ffffff;
+            color: $strong-blue;
+          }
+          &.notifications, &.messages{
+            position: relative;
+            .number{display: none;}
+            &.active{
+              cursor: pointer;
+              .number{ //~ Changing some values here to hopefully find a "Goldilocks zone" where this will accomodate one- and two-digit numbers equally well. Rather than trying to build really intricate html/css (which I did experiment with for a while), or even worse, onerous javascript - hopefully these values will support a nice one-size-fits-all. - MC 5.1.2014
+                display: block;
+                position: absolute;
+                top: 3px;
+                left: 50%;
+                width: 21px;
+                height: 21px;
+                font-size: $tiny;
+                line-height: 22px;
+                text-align: center;
+                background-color: $ruby-red;
+                color: #ffffff;
+                @include border-radius(10px);
+                z-index: 10;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .left-event-menu{
+    a{
+      padding-left: 30px;
+    }    
+  }
+  a.profile-link{
+    border-bottom: 0;
+    &.right-caret{
+      &:after{
+        content: ">"; //~ This re-adds the caret, creating an exception to the "no caret on desktop" view. We want our users to be clear that they can access their profile area from here. - MC 2.27.2014
+      }
+      &:hover, &:active{
+        background: transparent;
+        @include box-shadow(transparent);
+      }
+    }
+  }
+  .js-no-expand{
+    a.js-no-expand:after{
+      font-family: Fontawesome, "Open sans";
+      content: " \f147";
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      color: $medium-gray;
+      font-size: 20px;
+      margin-top: -15px; //~ Needs to be half the height of the element (currently 22px). An old classic trick, but it works.
+    }
+    &.clickable:hover, &.clickable:active{
+      @include box-shadow($lime-green);
+    }
+  }
+  .left-nav-header{
+    @extend %subheading;
+    @extend %ellipsis;
+    border-bottom: 1px solid $medium-gray;
+    padding-left: 5px;
+    margin-top: 10px;
+    &.event{
+      position: relative;
+      .main-title{
+        display: block;
+        @extend %ellipsis;
+        width: 90%;
+      }
+    }
+  }
+  .left-nav-group-items, .left-nav-event-items, .left-nav-other-items, .left-event-menu{
+    margin-bottom: 20px;
+    a{
+      padding-top: 5px;
+      padding-bottom: 5px;
+      height: 49px;
+      border-bottom: 1px solid $light-gray;
+      &:first-of-type{
+        padding-top: 8px; //~ The first item needs 8px on the top. Subsequent items need 5px.
+      }
+      &:last-of-type{
+        border-bottom: none;        
+      }
+    }
+  }
+  .left-event-menu{
+    a{
+      padding-left: 45px;
+      &:first-of-type{
+        padding-top: 5px; //~ Need to overwrite the 8px for the event menu for symnetry. - MC 10.17.2014
+      }
+    }
+    .right-caret{
+      &:hover, &:active{
+        @include box-shadow($lime-green);
+      }
+    }
+  }
+  .left-nav-group-items{
+    a:first-of-type{
+      padding-top: 5px; //~ Need to overwrite the 8px for the event menu for symnetry. - MC 10.17.2014
+    }
+  }
+}
+
+.js-slider-up{
+  a{
+    &:hover, &:active{
+      // background: $light-gray;
+    }
+  }
+}

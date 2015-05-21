@@ -1,0 +1,168 @@
+@import "variables.scss";
+
+.my-groups, .all-groups, .group-admin, .group-invites, .pending-group-invites{
+  .col-xs-3, .col-xs-4{
+    text-align: right; //~ This is used to push the buttons over to the left. - MC 5.16.2014
+  }
+  .group{
+    @extend %separating-line;
+    p{
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    span{
+      display: inline-block;
+      line-height: 11px;
+      font-size: $tiny;
+      color: $medium-gray;
+      &.members{
+        margin-right: 50px;
+      }
+    }
+    .col-xs-9, .col-xs-3, .col-xs-8, .col-xs-4{
+      @extend %vertical-align-two-columns;
+    }
+  }
+  label{
+    border-radius: none;
+    background: #ffffff;
+    color: $dark-gray;
+    &.hover, &.active{
+      background: $light-gray;
+    }
+  }
+  .group-owner, .pending-request{
+    color: $medium-gray;
+    text-align: right;
+    padding-right: 15px;
+    @media screen and (max-width: 800px){
+      font-size: $smaller;
+    }
+  }
+}
+
+.group-admin{
+  a{
+    display: block;
+    padding: 5px 0 5px 0;
+    margin: 5px 0 5px 0;
+    border-bottom: 1px solid $medium-gray;
+    &:last-of-type{
+      border: none;
+    }
+  }
+}
+
+.all-groups{
+  padding-top: 5px;
+  .group{
+    padding: 10px 0 10px 0;
+  }
+}
+
+.create-group, .apply-for-group, .edit-group{
+  textarea{
+    width: 100%;
+  }
+  p{
+    margin: 20px 0 5px 0;
+  }
+  label{
+    font-weight: normal; //~ needed to ovwrwrite bootstrap default.
+    display: block;
+  }
+  .group-type{
+    margin: 5px 0 5px 0;
+  }
+}
+
+.edit-group{
+  .form-wrapper{
+    margin-top: 10px;
+  }
+  .btn-all{
+    margin-top: 10px;
+  }
+}
+
+.pending-group-invites{
+  @extend %separating-line;
+  padding: 15px 0 15px 0;
+  .col-xs-9, .col-xs-3, .col-xs-8, .col-xs-4{
+    @extend %vertical-align-two-columns;
+  }
+}
+
+#content-anchor{ //~ Bad html structure forces me to write this lousy nested css. - MC 6.6.2014
+  div{    
+    .group-invites{
+      border-bottom: 1px solid $medium-gray;
+    }
+    &:last-of-type{
+      .group-invites{
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.group-invites{
+  padding-bottom: 10px;  
+  p{
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .members{
+    margin-top: -5px;
+  }
+  .invited-you-to-join{
+    display: inline-block;
+    line-height: 11px;
+    font-size: $tiny;
+    color: $medium-gray;
+  }
+  .col-xs-9, .col-xs-3, .col-xs-8, .col-xs-4{
+    @extend %vertical-align-two-columns;
+  }
+}
+.group-info{
+  padding-top: 12px;
+}
+
+h3.pending-group-invites{
+  padding: 15px 0 10px 0;
+}
+
+#user-list{ //~ Don't alter these styles without care. I structured it carefully to get the last of type working correctly; there is a lot of delicate nesting here. - MC 6.5.2014
+  .invite-to-group{
+    .right-caret{
+      &:after{
+        content: "";
+      }
+    }
+    .form-wrapper{
+      margin-bottom: 25px;
+    }
+    .user.invite-to-group{
+      padding: 15px 0 15px 0;
+      border-bottom: 1px solid $light-gray;
+    }
+    &:last-of-type{
+      .user.invite-to-group{
+        border-bottom: none;
+      }
+    }
+    .connected-status{ 
+      margin: 0;  //~ Better utilization of space; no need to have the regular spacing of 50px here. - MC 6.10.2014
+    }
+    @media screen and (max-width: 800px){
+      button{
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+      &:after{
+        content: "";
+      }
+    }
+  }
+}

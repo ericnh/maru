@@ -1,0 +1,20 @@
+@import "variables.scss";
+
+.email-contact-help{
+  textarea{
+    display: block;
+  }
+}
+
+.new-application{
+  p{
+    margin: 20px 0 0 0;
+  }
+  input{
+    display: inline-block;
+    @include border-radius(5px);
+  }
+  span{
+    color: $ruby-red;
+  }
+}

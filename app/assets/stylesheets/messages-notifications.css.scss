@@ -1,0 +1,146 @@
+@import "variables.scss";
+
+.messages-inbox, .message-view{
+  .time-ago{
+    padding-top: 0; //~ Because there is no corresponding post origin to move the top padding area.
+  }
+  .unread-message{
+    position: absolute;
+    left: -15px;
+    top: 0px;
+    color: $strong-blue;
+    font-size: $big-header;
+  }
+  .message-wrapper{ //~ Used for the message inbox only.
+    cursor: pointer;
+    position: relative;
+    padding-top: 15px;
+    padding-left: 15px; //~ Accomodating the new placement of the "unread" dot.
+    margin-left: -5px; //~ This plus the above line accomplishes the following: it gives a total space of 20px between the profile pictures and the left-navigation bar, while still allowing for some breathing room for the "unread" dot while the post is hovered. Pretty complicated. - MC 5.23.2014
+    @extend %separating-line;
+    &:hover, &:active{
+      background: $light-gray;
+    }
+    .message-body{
+      padding: 10px 108px 10px 0;
+      line-height: 20px;
+      @extend %ellipsis;
+    }
+  }
+  .user{
+    min-height: 70px;
+  }
+}
+
+//~ Individual message thread.
+.message-view{
+  //~ To toggle behavior when editing messages on the message_view page.
+  .dropdown{
+    top:0px;
+  }
+  .fa-wrench.active{
+    padding: 0;
+    &:before{
+      content: none;
+    }
+  }  
+  .edit-messages{
+    font-size: $larger;
+    cursor: pointer;
+  }
+  .your-message, .sender-message{
+    margin: 10px 0 10px 0;
+    position: relative;
+    .thumbnail-container{
+      display: inline-block;
+      vertical-align: top;
+      &.hide-thumbnail img{
+        visibility: hidden;
+      }
+    }
+    p.message-body{
+      display: inline-block;
+      padding: 10px;
+      border: 1px solid $medium-gray;
+      width: 78%;
+      height: $standard-user-thumbnail; //~ The height should match the thumbnail size.
+      border-radius: 8px;
+      margin-top: 0;
+      margin-bottom: 0;
+      vertical-align: top;
+    }
+  }
+  .your-message{
+    p.message-body{
+      background: $strong-blue;
+      color: #fff;
+    }
+  }
+  .sender-message{
+    p.message-body{
+      border-radius: 10px;
+    }
+  }
+  .message-send-information{
+    font-style: italic;
+    color: $light-gray;
+    font-size: $tiny;
+    padding: 0;
+    display: inline-block;
+  }
+  textarea#message-to-send{
+    padding: 3px;
+    min-height: 75px;
+  }
+  textarea#message-to-send, button#submit{
+  }  
+  .delete-checkbox{
+    margin-top: 5px;
+    margin-left: 22px;
+  }
+  .delete-button{
+    width:auto;
+  }
+
+  @media screen and (max-width: 800px){
+    .user-thumbnail-only{
+      display:none;
+    }
+  }
+  .your-message, .sender-message{
+    p.message-body{
+      min-height: 55px; //~ The height should match the thumbnail size.
+      height: auto; //~ overriding the forced-height that was set above.
+    }
+  }
+  .conversation-partner{
+    @extend %separating-line;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+  }
+}
+
+//~ This is used on both the notifications page, and the messages_inbox page.
+.unviewed:before{
+  content: "•";
+  color: $strong-blue;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  font-size: $big-header;
+}
+
+.notifications-list{ //~ The /notifications page should not be displaying the user thumbnail or initials. But when a notification is displayed in the feed, it should. There is a separate style applied in thefeed.css file. - MC 3.18.2015
+  .user-thumbnail-only{
+    display: none;
+  }
+}
+
+.notification{
+  position: relative;
+  padding: 10px 0 0 20px;
+  @extend %separating-line;
+  &.unviewed:before{
+    top: 0;
+  }
+}

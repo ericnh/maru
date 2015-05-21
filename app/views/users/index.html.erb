@@ -6,3 +6,64 @@
   Backbone.history.start();
   });
 </script>
+
+<div id="splash"></div>
+
+<!-- Initializing backbone -->
+<div class="initial-loader">
+  <div class="splash-screen-loading">
+    <p><i class="fa fa-spinner fa-spin"></i></p>
+  </div>
+  <div class="splash-e365logo"></div>
+  <!-- <p class="sponsor-preface">Launch Partner</p>
+  <div class="app-splash-sponsor">
+    <img src="https://s3.amazonaws.com/access_resources/production/event_splash/app_sponsor_splash.png" />
+  </div> -->
+</div>
+
+<div class="loader-container">
+  <div class="container" id="top-container">
+    <!-- This entire wrapper will be used to assist in menu control and behaviour -->
+    <div id="full-page-wrapper" class="row-offcanvas row-offcanvas-left">
+      <!-- Left NavBar -->
+      <!-- <div class="col-sm-3 sidebar-container"> -->
+      <div class="col-sm-4 sidebar-container">
+        <nav class="sidebar-offcanvas left" id="sidebar" role="navigation"></nav>
+      </div>
+      <!-- Used to supplement Left Menu behavior. -->
+      <div id="overlay"></div>
+      <!-- Adding this to enable Off Canvas bootstrap menu -->
+      <!-- <div class="col-sm-9 main-content-wrapper"> -->
+      <div class="col-sm-8 main-content-wrapper">
+        <!-- Begin top header -->
+        <div class="sub-container top-header">
+          <a class="back-button" onclick="Access.goBack()"></a>
+          <div class="showLeftPush" data-toggle="offcanvas">
+            <div class="open-left-menu"><i class="fa fa-bars"></i></div>
+            <div class="combined-notifications-count"></div>
+          </div>
+          <div class="header-title"></div>
+        </div>
+        <!-- <div id="right-area"> -->
+        <!-- This is where the central content will go -->
+          <div id="todays-event" style="display: none;"></div>
+          <div class="sub-container main-banner-ad"></div>
+          <div class="top-page-spacer"></div>
+          <div id="group-sub-menu" class="sub-menu group"></div>
+          <div id="groups-sub-menu" class="sub-menu groups"></div>
+          <div id="events-sub-menu" class="sub-menu events"></div>
+          <div id="event-sub-menu" class="sub-menu event"></div>
+          <div id="settings-sub-menu" class="sub-menu settings"></div>
+          <div class="clear"></div>
+          <div id="main-content-area"></div>
+          <div class="clear"></div>
+          <div class="flash-message success-message alert alert-success"><span></span></div>
+          <div class="flash-message error-message alert alert-danger"><span></span></div>
+          <div class="flash-message notice-message alert alert-warning"><span></span></div>
+        <!-- end central content -->
+        <!-- </div> -->
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>

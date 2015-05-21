@@ -1,0 +1,55 @@
+html.ie7{
+  // Need to put something here akin to an "Upgrade your browser" message. Maybe hide the main content areas and reveal said message.
+}
+
+html.ie8, html.ie9{
+  overflow: auto !important;
+  body{
+    min-width: 825px; // This will prevent any of hte left-menu behavior. IE users will have to scroll; we will not support all of the intricacies associated with our responsive left-menu.
+    overflow: auto !important;
+  }
+  .showLeftPush{
+    display: none !important;
+  }
+
+  #sidebar.left{
+    left: auto !important;
+    // overflow: hidden !important; // Removing this - I think it was to force the page to conform to an older treatment. But now we want the page to scroll. - MC 11.10.2014
+  }
+
+  .main-banner-ad{
+    display: inherit; // Our current setting of "display: table" is interfering with IE displaying this as full width. I believe that setting was implemented to address a 1px display bug - something that is not a concern within this context. - MC 11.11.2014
+    // In IE9 (at least), the javascript is not correctly adding and removing classes dynamically. Instead of alternative with the classes "next" and "active", the div ".item" either has both classes "next" and "active", or it has niether of them. These following style edits are a hack to accommodate these irregularities. - MC 11.11.2014
+    .carousel-inner{
+      .item{
+        left: 0 !important;
+        display: block !important;
+        position: relative !important;
+        &:not(.active){
+          display: none !important;
+        }
+      }
+    }
+  }
+
+  // If the user has a narrow window width, force a fixed-width screen mode. Force them to scroll over, or resize their window.
+  @media screen and (max-width: 800px){ 
+    .sidebar-container{
+      width: 170px !important;
+    }
+    .left#sidebar{
+      width: 170px !important;
+      float: left !important;
+    }
+    .main-content-wrapper{
+      width: 800px !important;
+      padding-left: 180px !important;
+      padding-top: 0 !important;      
+    }
+    .sub-container.top-header{
+      position: relative !important;
+      padding-left: 180px !important;
+      width: 620px !important;
+    }
+  }
+}

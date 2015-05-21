@@ -1,0 +1,55 @@
+@import "variables.scss";
+
+.flash-message{
+  cursor: pointer;
+  position: fixed;
+  bottom: 0;
+  display: none;
+  z-index: 100;
+  margin: 0;
+  text-align: center;
+  @include border-radius(0px);
+  padding: 0 0 26px 0;
+  color: #ffffff;
+  border: none;
+  width: 100%;
+  min-width: 380px; // Not a permanent fix, but it will provide a little bit of a safety net. I can't create a good permanent solution yet.... - MC 9.10.2014
+  span{ // Adding this to accommodate some padding in the inner text. - MC 9.24.2014
+    display: block;
+    padding: 0 20px 0 20px;
+  }
+  &:before{
+    content:"x";
+    top: 0;
+    text-align: right;
+    padding-right: 15px;
+    background: rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,.5);
+    display: block;
+    margin-bottom: 26px;
+  }
+  &:hover, &:active{
+    &:before{      
+      color: $dark-gray;
+    }
+  }
+  &.alert-success{
+    background-color: $lime-green;
+  }
+  &.alert-danger{
+    background-color: $ruby-red;
+  }
+  &.alert-warning{
+    background-color: $orange;
+  }
+  @media screen and (max-width: 800px){
+    font-size: $small;
+  }
+}
+
+//~ This sets the message to 100% width on the auth pages. - MC 6.11.2014
+.login-container{
+  .flash-message{
+    left: 0;
+  }
+}

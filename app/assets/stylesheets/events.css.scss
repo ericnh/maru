@@ -1,0 +1,189 @@
+@import "variables.scss";
+
+.my-events, .past-events, .upcoming-events{
+  .event{
+    @extend %separating-line;
+    padding: 10px 0 10px 0;
+    .col-xs-9, .col-xs-3{
+      @extend %vertical-align-two-columns;
+    }
+    .date{
+      font-size: $tiny;
+    }
+    .reg-status{
+      color: $medium-gray;
+      font-size: $tiny;
+      text-transform: uppercase;
+      display: block;
+    }
+  }
+  .right-caret{
+    &:hover, &:active{
+      @include box-shadow($lime-green);
+    }
+  }
+}
+
+.my-events{
+  padding-top: 20px; //~ should make 25px total. - MC 6.4.2014
+}
+
+#todays-event{
+  background: #ffffff;
+  border-bottom: 1px solid $light-gray;
+  width: calc(100% + 1px); //~ This 1px issue originates from the odd rounding issues of the header. - MC 6.5.2014
+  a{
+    height: 58px;
+    font-size: $tiny;
+    color: $lime-green;
+    padding: 5px 0 10px 20px;
+    margin: 0;
+    display: block;
+    .title{
+      display: block;
+      font-size: $medium;
+      @extend %ellipsis;
+    }
+    &:before{
+      float: left;
+      font-family: Fontawesome, "Open sans";
+      font-size: $medium;
+      margin: 3px 10px 0 0;
+      content: " \f073";
+      padding: 10px 15px 10px 15px;
+      @include border-radius(5px);
+      background: $lime-green;
+      color: #ffffff;
+      &:hover, &:active{
+        color: $lime-green;
+        background: #ffffff;
+      }
+    }
+    &:hover, &:active{
+      background: $lime-green;
+      color: #ffffff;
+      &:before{
+        color: $lime-green;
+        background: #ffffff;
+      }
+    }
+  }
+}
+
+.event-info{
+  h4{
+    @extend %underscoring-line;
+  }
+  .right-caret{
+    &:hover, &:active{
+      @include box-shadow($lime-green);
+    }
+  }
+}
+
+.calendar-title{
+  position: relative;
+  margin: 0 0 25px 0;
+  min-height: 40px;
+  &:after{
+    top: 0;
+    padding-left: 10px;
+    font-family: Fontawesome, "Open sans";
+    color: $lime-green;
+    content: "\f073";
+  }
+}
+
+.venue-location{
+  // &:after{ // Ryan indicated to hide this icon for now. Once we can better assess what our data can support (in terms of address completeness, etc), then we can revisit this. - MC 8.27.2014
+  //   font-family: "fontawesome";
+  //   content: "\f041";
+  //   padding-left: 10px;
+  // }
+}
+
+#qrcode{
+  img{
+    margin: 0 auto 0 auto;
+  }
+}
+
+.event-attendees, .event-speakers, .event-council-members, .prize-entrants{
+  .sort-user-list{
+    border: 2px solid $lime-green;
+    margin-top: -70px;
+    span{
+      color: $lime-green;
+      &.active{
+        background: $lime-green;
+        color: #ffffff;
+      }
+    }
+  }
+  .right-caret{
+    &:hover, &:active{
+      @include box-shadow($lime-green);
+    }
+  }
+}
+
+.event-attendees{
+  .sort-user-list{
+    margin-top: -130px; //~ This page now has a user filter. We need to do somrthing about this sorting button one day. - MC 3.12.2015
+  }
+}
+
+.prize-entrants{
+  .sort-user-list{
+    margin-top: -175px; // Bumping this up to make room for the Codes Used percentage bar.
+  }
+  .footnote{
+    display: none;
+  }
+  @media screen and (max-width: 800px){
+    button.export{
+      display: none;
+    }
+    .footnote{
+      display: block;
+    }
+    .sort-user-list{
+      display: none; // causes display issues on mobile. just hide it for now.
+    }
+  }
+  #entrant-export-modal{
+    text-align: center;
+    margin: 0 auto 0 auto;
+    padding: 100px 0 0 0;
+    .modal-content{
+      padding: 50px;
+    }
+    p{
+      font-size: $large;
+      margin-bottom: 30px;
+    }
+  }
+  .prize-winner{
+    color: $lime-green;
+    // @extend %vertical-align;
+    display: block;
+    text-align: center;
+  }
+}
+
+.right-titlebar-link.event-pencil{
+  &:hover, &:active{
+    color: $lime-green;
+  }
+}
+
+.sponsor_leaderboard_row{
+  img{
+    max-width: 80%;
+    max-height: 60px;
+    display: block;
+  }
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  @extend %separating-line;
+}

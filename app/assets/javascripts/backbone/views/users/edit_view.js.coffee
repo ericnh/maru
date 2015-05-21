@@ -2,7 +2,7 @@ class Maru.Views.UsersEditView extends Backbone.View
 
   template: JST["backbone/templates/users/edit"]
 
-  el: '#users'
+  el: '#main-content-area'
 
   events:
     "submit #edit-user" : "update"
@@ -20,7 +20,8 @@ class Maru.Views.UsersEditView extends Backbone.View
     name = $('#name').val()
     points = $('#points').val()
     side = $('#side').val()
-    @model.save({name: name, points: points, side: side},
+    @model.set({name: name, points: points, side: side},
                 success: (user) =>
-                    @model = user
-                    window.location.hash = "/#{@model.id}")
+                    @model = user)
+    this.undelegateEvents();
+    window.location.hash = "/index"

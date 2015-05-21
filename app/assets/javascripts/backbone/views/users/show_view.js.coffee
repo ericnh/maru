@@ -6,5 +6,5 @@ class Maru.Views.UsersShowView extends Backbone.View
     @render()
 
   render: ->
-    $('#users').html(@template(@model.toJSON()))
+    $('#main-content-area').html(@template(@model.toJSON()))
     @

@@ -1,0 +1,75 @@
+@import "variables.scss";
+
+.view-notes, .view-note, .view-bookmarks{
+  > h3{
+    @extend %underscoring-line;
+  }
+  .note, .bookmark{
+    padding: 10px 0 5px 0;
+    @extend %separating-line;
+  }
+  .bookmark{
+    .note-summary{
+      display: none;
+    }
+  }
+  .note-title{
+    font-size: $medium;
+    @media screen and (max-width: 800px){
+      font-size: $small;
+    }
+  }
+  .note-summary{
+    font-size: $small;
+    @media screen and (max-width: 800px){
+      font-size: $smaller;
+    }
+    @extend %ellipsis;
+  }
+  .sub-text{
+    color: $medium-gray;
+    font-size: $tiny;
+    text-transform: uppercase;
+    padding-bottom: 3px; //~ Using padding here because the margins would collapse and reduce to only 5 total, instead of the 8 total that we need. - MC 5.30.2014
+    margin-bottom: 0;
+  }
+  .right-titlebar-link{ //~ Not sure where else to put this. This is for the emailing of notes. - MC 5.30.2014
+    &:hover, &:active{
+      color: $lime-green;
+    }
+  }
+  .right-caret{
+    &:hover, &:active{
+      @include box-shadow($lime-green);
+    }
+  }
+}
+
+.view-notes{
+  .calendar-title{
+    margin-bottom: 5px;
+  }
+  .note{
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+.sponsor-note-text{
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid $medium-gray;
+}
+
+.view-note{
+  h2{
+    margin-top: 0;
+  }
+  .note{
+    border: none;
+  }
+}
+
+.note-event{
+  font-size: small;
+}

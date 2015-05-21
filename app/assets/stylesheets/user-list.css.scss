@@ -1,0 +1,66 @@
+@import "variables.scss";
+.gb-header{
+  background-color: $light-gray;
+  @include border-radius(5px);
+  height: 40px;
+  line-height:40px;
+  padding: 0 10px;
+  margin: 25px 0;
+}
+
+#user-list{
+  .letter{
+    @extend %underscoring-line;
+  }
+  .user{
+    // margin-bottom: 0; // Test; removing this for new border hover. - MC 7.23.2014
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .go-to-profile{ //~ This prevents the top border when there are LESS than 5 users in the list. - MC 6.12.2014
+    &:first-of-type{
+      .user.go-to-profile{
+        border-top: none;
+      }
+    }
+  }
+
+  .go-to-profile{ //~ Delicate css here! Edit with caution; it is carefully nested to allow for a correct application of last of type. This prevents the top border when there are MORE than 5 users in the list (when the letters begin appearing). - MC 6.5.2014
+    .user.go-to-profile{
+      border-bottom: none;
+      border-top: 1px solid $light-gray;
+    }
+  }
+  h4.letter + .go-to-profile{
+    .user.go-to-profile{
+      border-top: none;
+    }
+  }
+  .gb-attendance-status{
+    font-size: $small;
+    color: $lime-green;
+    padding-left: $leftnav-user-thumbnail;
+  }
+}
+
+.group-members #user-list{
+  margin-top: 25px;
+  .sort-user-list{
+    position: relative;
+    float: right;
+    margin-top: 0;
+  }
+}
+
+//~ Customizing the width here, since there is no user-connected status. - MC 6.12.2014
+.event-council-members{
+  .go-to-profile{
+    .col-xs-9{
+      width: calc(100% - 35px);
+    }
+    .col-xs-3{
+      width: 35px;
+    }
+  }
+}

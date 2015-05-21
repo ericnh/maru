@@ -1,0 +1,99 @@
+@import "variables.scss";
+
+.row-offcanvas-left{
+  left: 0;
+  transition:left $open-nav-menu-speed;
+}
+
+.showLeftPush{
+  display: none;
+}
+
+//~ Styles for the "medium" viewport; tablets etc. Anything 800px or over will be displayed as a full screen view, where the left menu bar will always be in place.
+//~ Note - by default this value is 768 pixels, but we want to retain the 'tablet' view for tablets and iPads. So we have customized this value. 1.31.2014
+
+@media screen and (max-width: 800px) {
+
+  body{
+    background: #ffffff; // This fixes the issues where the gray background color is visible, on pages with a short height. In the tablet view, you can't see the background colors on the sides at all - it only causes problems for us. So we can set teh color to white to remedy this. - MC 11.4.2014
+  }
+
+  #main-content-area{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .main-content-wrapper{
+    box-shadow: none;
+  }
+  .showLeftPush{
+    &.active{
+      display: block;
+    }
+  }
+  #overlay{
+    background: transparent;
+    z-index: -1000;
+    opacity: 0;
+    position: fixed;
+    bottom: 0;
+    top: 50px;
+    height: 100%;
+    width: 100%;
+    &.active{
+      background: $dark-gray;
+      opacity: .5; //~ Matches the default Modal overlay color/transparency.
+      z-index: 900;
+    }
+  }
+  .row-offcanvas{
+    position: relative;
+  }
+
+  .sidebar-offcanvas{
+    width: 50%;
+    z-index: 1000;
+    transition:left $open-nav-menu-speed, width $open-nav-menu-speed;
+    top: 0;
+    bottom: 0;
+    padding-bottom: 100px;
+  }
+
+  .row-offcanvas-left{
+    .sidebar-offcanvas{
+      left: -60%;
+    }
+    //~ These next styles are utilized when the menu is opened; when 'active' has been added to the wrapping div '.row-offcanvas-left' ; They move the position of different elements around, allowing them to slide out.
+    &.active{
+      left: 85%;
+      height: 100%;
+      overflow: hidden;
+      .sidebar-offcanvas{
+        width: 85%;
+        left: 0;
+      }
+      .sub-container.top-header{
+        left: 85%;
+        transition:left $open-nav-menu-speed;
+      }
+    }
+  }
+
+  #full-page-wrapper{
+    padding: 0;
+  }
+  .combined-notifications-count{
+    &.active{
+      display: block;
+    }
+  }
+}
+
+//~ This one style is broken out due to a range of possible padding on the main content. By setting this padding at 800px, it causes slight display problems. So by moving this out here, we are setting this value only when it is needed. - MC 3.26.2014
+//~ This is a unique value that must be in place for when the left menu is currently hidden, but not expanded. Its primary function is as follows: without this, when you collapse the left menu, the value of 'auto' is inherited, which does not automatically trigger and resize the header bar. But when this value is inherited at that point, it becomes adjusted to the correct size.
+@media screen and (max-width: 800px){
+  .row-offcanvas-left{
+    .sub-container.top-header{
+      left: 0px; //~ Changing this to zero (was 15px), to accomodate the removal of the space/gutter between the main content and hte left menu when they are both visible. - MC 3.26.2014
+    }
+  }
+}

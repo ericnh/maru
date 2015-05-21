@@ -1,0 +1,28 @@
+@import "variables.scss";
+.search-page{
+  #event-group-list{
+    a.event, a.group{
+      margin: 5px 0 5px 0;
+      padding: 5px;
+      color: $dark-gray;
+      @extend %separating-line;
+      .fa-calendar, .fa-users{
+        padding: 10px;
+        background-color: $lime-green;
+        @include border-radius(5px);
+        display: inline-block;
+        color: #ffffff;
+        overflow: visible; // Used to overwrite a style set from elsewhere. This is needed for a clean vertical alignment. - MC 2.5.2015
+        margin: 5px 0 5px 0;
+      }
+      &:hover, &:active{
+        color: #000000;
+      }
+    }
+    a.group{
+      .fa-users{
+        background-color: $ruby-red;
+      }
+    }
+  }
+}

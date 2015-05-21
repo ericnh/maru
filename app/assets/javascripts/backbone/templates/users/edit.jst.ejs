@@ -1,25 +1,30 @@
 <h1>Edit user</h1>
+<div class="form-wrapper">
+  <form id="edit-user" name="user">
+    <div class="field">
+      <label for="name"> Name:</label>
+      <input type="text" name="name" id="name" value="<%= name %>" >
+    </div>
 
-<form id="edit-user" name="user">
-  <div class="field">
-    <label for="name"> name:</label>
-    <input type="text" name="name" id="name" value="<%= name %>" >
-  </div>
+    <div class="field">
+      <label for="points"> Points:</label>
+      <input type="text" name="points" id="points" value="<%= points %>" >
+    </div>
+    
+      <div class="field">
+      <label for="side"> Side:</label>
+      <select  name="side" id="side">
+        <option value="<%= side %>"><%= side %></option>
+        <option value="Rebellion">Rebellion</option>
+        <option value="Empire">Empire</option>
+        <option value="Independent">Independent</option>
+      </select>
+    </div>
 
-  <div class="field">
-    <label for="points"> points:</label>
-    <input type="text" name="points" id="points" value="<%= points %>" >
-  </div>
-  
-  <div class="field">
-    <label for="side"> side:</label>
-    <input type="text" name="side" id="side" value="<%= side %>" >
-  </div>
+    <div class="actions">
+      <input type="submit" value="Update User" />
+    </div>
 
-  <div class="actions">
-    <input type="submit" value="Update User" />
-  </div>
-
-</form>
-
+  </form>
+</div>
 <a href="#/index">Back</a>

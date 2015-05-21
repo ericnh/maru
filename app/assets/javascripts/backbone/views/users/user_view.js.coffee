@@ -9,6 +9,7 @@ class Maru.Views.UserView extends Backbone.View
   destroy: () ->
     confirmed = confirm('Are you sure you want to delete this user?') #Bug #0007
     if confirmed
+      Maru.users.remove(@model)
       this.remove()
       return false
     else

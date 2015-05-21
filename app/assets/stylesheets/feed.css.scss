@@ -1,0 +1,317 @@
+@import "variables.scss";
+
+.feed{
+  margin-top: -20px; // This is messy; adding this to get the desired 10px at the top of the MyFeed page only. Hopefully this won't interfere with regards to Featured Content, etc. - MC 6.2.2014
+}
+
+.featured-content{
+  color: #ffffff;
+  margin: 10px 0 10px 0;
+  p.carousel-title{
+    color: #ffffff;
+    margin: 0;
+    padding: 10px;
+    line-height: 10px;
+    font-size: $tiny;
+    text-transform: uppercase;
+    letter-spacing: .75px;
+  }
+  p.carousel-body{
+    margin: 0;
+    padding: 10px;
+    height: 65px; // This limits the number of lines displayed. Re-adding this on 6.19.2014
+    overflow: hidden;
+    position: relative;
+    span{
+      @extend %vertical-align;
+    }
+    @media screen and (max-width: 800px){
+      padding: 10px;
+    }
+    @media screen and (max-width: 500px){ // Needed to limit variable height on small devices  - MC 5.28.2014
+      max-height: 145px;
+      margin-bottom: 5px;
+    }
+  }
+  .post{
+    border: none;
+    &:after{
+      content: "";
+    }
+    &:hover, &:active{
+      background: inherit;
+      color: #ffffff;
+    }
+  }
+  .post{
+    margin: 0;
+  }
+}
+
+#featured-carousel{
+  border: 2px solid $darker-blue;
+  background-color: $strong-blue;
+  @include border-radius(5px);
+  p.carousel-title{
+    background-color: $darker-blue
+  }
+}
+
+.event-feed{
+  #featured-carousel{
+    border: 2px solid $darker-green;
+    background-color: $lime-green;
+    p.carousel-title{
+      background-color: $darker-green;
+    }
+  }
+}
+
+// Unique customizations to the FEED views.
+#post-list{
+  .post{
+    cursor: pointer;
+    &:hover, &:active{
+      // background-color: $light-gray;
+      border-color: $strong-blue;
+      .recent-activity{
+        background-color: $strong-blue;
+        .dropdown{
+          color: #ffffff;
+          &:hover{
+            color: #ffffff;
+            background: $darker-blue;
+          }
+        }
+      }
+    }
+    .article-title{
+      margin: 0 0 20px 0;
+      @media screen and (max-width: 800px){
+        margin: 0 0 25px 0;
+        font-size: $large;
+      }
+    }
+    .origin{
+      margin-bottom: 8px;
+      position: relative;
+      span{
+        max-width: calc(100% - 30px);
+        display: inline-block;
+        @extend %ellipsis;
+      }
+      i{
+        top: 2px;
+        margin-left: 5px;
+        position: absolute;
+      }
+    }
+    .post-attachment-icon{
+      text-align: right;
+      color: $strong-blue;
+      margin: 0;
+      line-height: 18px;
+      height: 18px;
+      font-size: $large;
+      .fa{
+        margin: 0 2px 0 2px;
+      }
+    }
+    .recent-activity, .no-recent-activity{
+      font-size: $tiny;
+      background-color: $medium-gray;
+      color: #ffffff;
+      padding: 0 8px 0 8px;
+      line-height: 26px;
+      height: 36px; // Updated to fit the clickable caret. In dialogue with Ryan; not documented. - MC 5.27.2014
+      margin-bottom: 20px;
+      &.activity-true{
+        margin-top: -20px;
+        border-top: 1px solid $light-gray;
+      }
+      .comments{
+        p{
+          @extend %ellipsis;
+          @media screen and (max-width: 390px){
+            max-width: 175px; // Needed to prevent overlap on the right-side elements / channels, for small mobile view.
+          }
+        }
+      }
+      .col-xs-3{
+        float: right;
+        max-width: 90px;
+      }
+      .time-ago{ // Needed due to different color, different padding/margin treatment of the parallel text, and padding on the paperclip. Leave this. - MC 5.23.2014
+        // right: 40px; // making room for the caret.
+        right: 25px; // test, MC 3.11.2015
+        width: 55px;
+        text-align: left;
+        height: 26px; // Because this has absolute positioning, I'm adding this to help define its height as part of the block element document flow.
+        top: 5px;
+        color: #ffffff;
+        min-height: inherit;
+      }
+    }
+    .no-recent-activity{
+      padding: 10px 8px 0 8px;
+      margin-bottom: 0;
+      background: none;
+      .time-ago{
+        color: $medium-gray;
+        top: -5px;
+      }
+      .dropdown{
+        margin-top: -10px; // Not sure why this is behaving differently than recent-activity; can't find a better solution right now. - MC 5.27.2014
+      }
+      .dropdown-menu{
+        top: 24px;
+      }
+    }
+    .fa-chevron-down{
+      padding: 10px;
+      cursor: pointer;
+      position: relative;
+      right: 0;
+      @include border-radius(5px);
+      &:hover, &:active{
+        color: #ffffff;
+        background-color: $darker-blue;
+      }
+    }
+    .dropdown{
+      position: absolute; // trying to get each item into their own respective 'channel' - MC 5.28.2014
+      top: 0;
+      right: 0;
+    }
+    .dropdown-menu{
+      top: 34px;
+      right: 0;
+    }
+    .like-comment{
+      text-align: right;      
+    }
+    .post-inner-content{
+      &:hover, &:active{
+        // background: $light-gray;
+      }
+      padding: 0 20px 20px 20px; // padding top is being removed here so that we can add different bottom margins for the recent-activity, or no-recent-activity. - MC 5.27.2014
+      @media screen and (max-width: 800px){
+        padding: 0 10px 15px 10px;
+      }
+    }
+    .post-preview{
+      max-height: 70px; // Should limit the excerpt to 3 lines.
+      overflow: hidden;
+      width: 90%; // Just for readability purposes; prevent the titles from displaying all the way across.
+      margin-bottom: 20px;
+      @media screen and (max-width: 800px){
+        margin-bottom: 25px;
+      }
+    }
+    .user{
+      margin-bottom: 15px; // This, plus the default 5px of the post body, will accomplish a desierd 20px separation. - MC 5.27.2014
+      @media screen and (max-width: 800px){
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .notification{ // These exist outside of posts, but still within the feed.
+    @extend %box;
+    border-color: $medium-gray;
+    @include border-radius(5px);
+    padding: 0 20px 0 20px;
+    .user-thumbnail-only{
+      font-size: $small;
+      height: $small-user-thumbnail;
+      width: $small-user-thumbnail;
+      @extend %vertical-align;
+    }
+    img, .user-photo-placeholder{
+      font-size: $small;
+      height: $small-user-thumbnail;
+      width: $small-user-thumbnail;
+      @include border-radius(5px);
+    }
+    p{
+      padding-left: $small-user-thumbnail + $distance-from-thumbnail;
+      display: inline-block;
+    }
+    .time-ago{
+      top: 8px;
+      right: 40px;
+    }
+    &:hover, &:active{
+      border-color: $strong-blue;
+    }
+    &.unviewed{
+      &:before{
+        display: none;
+      }
+    }
+  }
+}
+
+// Unique customizations to the event feed view.
+.event-feed, .featured-feed.event{
+  #post-list{
+    .post{
+      &:hover, &:active{
+        border-color: $lime-green;
+        .recent-activity{
+          background: $lime-green;
+        }
+        .dropdown{
+          &:hover{
+            background: $darker-green;
+          }
+        }
+      }
+      .post-attachment-icon{
+        color: $lime-green;
+      }
+      .fa-chevron-down{
+        color: $darker-green;
+        &:hover, &:active{
+          color: #ffffff;
+          background-color: $darker-green;
+        }
+      }
+      .text-right.open{
+        .fa-chevron-down{
+          color: #ffffff; // Only for when the menu is opened.
+        }
+      }
+      .open{
+        .dropdown{
+          background: $darker-green;
+        }
+      }
+      .dropdown-menu{
+        background: $darker-green;
+        a + a{
+          border-top: 1px solid #ffffff;
+        }
+        a:hover, a:active{
+          background: $lime-green;
+        }
+      }
+      .like-button, .comment-button{
+        &:hover, &:active{
+          color: $lime-green;
+        }
+      }
+      .btn-all.liked{
+        border-color: $lime-green;
+        background-color: $lime-green;
+        &:hover, &:active{
+          color: #ffffff;
+        }
+      }
+    }
+    .notification{ // These exist outside of posts, but still within the feed.
+      &:hover, &:active{
+        border-color: $lime-green;
+      }
+    }
+  }
+}

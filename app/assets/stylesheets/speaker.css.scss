@@ -1,0 +1,29 @@
+@import "variables.scss";
+.event-speaker{
+  .short-user{
+    height: $profile-user-thumbnail;
+    padding-top: 20px;
+    margin-bottom: 15px;
+    img, .user-photo-placeholder{
+      height: $profile-user-thumbnail;
+      width: $profile-user-thumbnail;
+    }
+    h3, p{
+      padding: 0px 5px 5px $profile-user-thumbnail + $distance-from-thumbnail; //~ Moving the 5px from the top to the bottom, to prevent letter overlapping. Should this be applied to the other two locations: profile.css and menu.css? I'm not sure. It could cause issues there. - MC 6.12.2014
+    }
+    p{
+      line-height: 18px;      
+    }
+    .comma{
+      display: block;
+      visibility: hidden;
+      height: 0;
+    }
+  }
+  .sub-buttons{
+  	margin-bottom:22px;
+  }
+  .related-session{
+  	@extend %ellipsis;
+  }
+}

@@ -1,0 +1,206 @@
+@import "variables.scss";
+
+.post{
+  @extend %box;
+  border-color: $medium-gray;
+  @include border-radius(5px);
+  overflow: hidden;
+  padding: 0;
+  .post-inner-content{
+    padding: 20px;
+    .article-title{
+      margin: 0 0 45px 0;
+    }    
+  }
+}
+
+.comments{
+  @extend %ellipsis;
+}
+
+.user-comments{ //~ Keep in mind any distinct elements between this and the "user" classes.
+  .comment{
+    @extend %separating-line;
+    padding: 15px 0 10px 0;
+    .comment-body{
+      max-width: 700px;
+      //~ This needs to be indented in, to line up with the author name.
+      @media screen and (max-width: 400px){
+        margin: 0;
+      }
+    }
+  }
+  textarea{
+    min-height: 50px;
+    border: 2px solid $medium-gray;
+    @include border-radius(5px);
+    padding: 3px;
+  }
+}
+
+#user-comment-area div:last-of-type .comment{
+  border-bottom: none;
+}
+
+#user-comment-area div:first-of-type .comment{
+  padding-top: 2px;
+}
+//~ These sometimes live outside of the .post class; for instance, on the event_session page.
+.like-comment{
+  .likes-comments{
+    float: left;
+    display: inline-block;
+    padding: 10px 0 10px 0;
+    @extend %subheading;
+    font-size: $tiny;
+    span{
+      display: block;
+      margin: 0 auto 0 auto;
+      text-align: left;
+    }
+  }
+}
+
+.post-options{
+  float: right;
+  color: $strong-blue;
+  height: 30px;
+}
+
+.post-form{
+  textarea{
+    min-height: 100px;
+  }
+}
+
+.view-posts, .view-likes{
+  .post, .like{ //! The posts here, in particular, need a decent amount of customization. They really aren't visually treated at all like posts. Maybe we could re-name these at some point.
+    &:first-child{
+      padding-top: 0; //~ to accomodate a 25px space at the top.
+    }
+    @extend %underscoring-line;
+    @include border-radius(0px);
+    margin: 0;
+    padding: 15px 0 15px 0;
+    p{
+      margin: 0; //~ The spacing here is really precarious. I would think I should add 5 or 10 pixels here, but when we are getting down to the very pixel, every item's line-height will need to be declared. yuck. - MC 5.22.2014
+      width: 85%; //~ So that the text does not overlap with the "time-ago" channel. - MC 5.22.2014 (updated to 85 from 75% - MC 5.23.2014)
+      &.origin{
+        margin: 0;
+      }
+      a{
+        max-height: 42px; //~ Limiting display to two lines of text. Nesting this within the p tag because when this was in the p tag, the a still had an excess height for some reasons. - MC 5.22.2014
+        line-height: 20px;
+        overflow: hidden;
+        display: block;
+      }
+    }
+    &:last-of-type{
+      border-bottom: none;
+    }
+  }
+}
+
+//~ Individual post view. Avoid needless duplication.
+
+.view-post{
+  h4{
+    @extend %underscoring-line;
+  }
+  .post{
+    border: none;
+  }
+  .suggested-post{
+    @extend %underscoring-line;
+    &:hover, &:active{
+      cursor: pointer;
+      background: $lime-green;
+    }
+  }
+  .edit-comment-textarea{
+    margin-top: 20px;
+    min-height: 100px;
+    white-space: pre-wrap;
+  }
+  .like-comment{
+    .comment-button{
+      &:hover, &:active{
+        cursor: pointer;
+        background: #ffffff;
+        .fa-comment{
+          color: $dark-gray;
+        }
+      }
+    }
+  }  
+}
+
+.post-attachment{
+  @extend %separating-line;
+  padding: 15px 0 15px 10px;
+  img{
+    display: block;
+    width: 200px;
+  }
+  a{
+    width:90%;
+    @extend %ellipsis;
+    overflow-x: hidden;
+  }
+  iframe, video, audio{
+    width: calc(100% - 95px);
+    @media screen and (max-width: 800px){
+      width: 100%;
+      display: block;
+    }
+  }
+  .input-onerow{    
+    textarea, button.submit{
+      min-height: 75px;
+    }
+    button.delete{
+      height: 40px;
+      max-height: 40px;
+      @media screen and (max-width: 800px){ //~ Undoing the vertical aligning. This is getting tricky. Should possibly look into aoolying this globally? - MC 5.29.2014
+        position: relative;
+        top: 0;
+        -webkit-transform: inherit;
+        margin: 5px;
+        float: right;
+      }
+    }
+  }
+}
+.js-attachment-area div:first-of-type .post-attachment{
+  padding-top: 10px;
+}
+.js-attachment-area div:last-of-type .post-attachment{
+  border-bottom: none;
+}
+
+.js-attachment-area{
+  .input-onerow{
+    a{
+      @extend %ellipsis;
+      width: calc(100% - 95px);
+      display: inline-block;
+    }
+    iframe{
+      width: calc(100% - 95px); //~ Making room for the "delete" button. If this number is too large, the placement of the content / delete button get swapped for some reason. - MC 5.29.2014
+      @media screen and (max-width: 800px){
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+}
+
+#attachment-upload-modal{
+  text-align: center;
+  margin: 0 auto 0 auto;
+  padding: 100px 0 0 0;
+  p{
+    font-size: $large;
+    padding: 50px;
+  }
+}

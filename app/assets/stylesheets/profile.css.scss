@@ -1,0 +1,159 @@
+@import "variables.scss";
+
+.profile, .edit-profile{ //~ .profile-container is used for the edit_profile page.
+  position: relative;
+  //~ Customizing this for a larger appearance on the profile page. Also used on the speaker_user page.
+  .profile-top-buttons{ //~ Unique customizations are needed here.
+    a.profile-message-button, .connected-status{
+      width: auto;
+      min-width: 50px;
+      text-align: center;
+      margin: 0 0 0 10px;
+      float: right;
+      padding: 0 10px 0 10px;
+      &:hover, &:active{
+        color: $strong-blue;
+      }
+      i{
+        position: relative;
+        top: inherit;
+        right: inherit;
+      }
+    }
+  }
+  .short-user{
+    height: $profile-user-thumbnail;
+    padding-top: 20px;
+    img, .user-photo-placeholder{
+      height: $profile-user-thumbnail;
+      width: $profile-user-thumbnail;
+    }
+    h3, p{
+      padding: 5px 5px 0 $profile-user-thumbnail + $distance-from-thumbnail; //~ Adding 5px at the top, to accomodate new variations and a refactor of the styles. - MC 6.10.2014
+    }
+    p{
+      line-height: 18px;      
+    }
+    .comma{
+      display: block;
+      visibility: hidden;
+      height: 0;
+    }
+  }
+}
+
+//~ Unique profile view styles.
+.profile{
+  h4{
+    @extend %underscoring-line;
+  }
+}
+
+.edit-thumbnail-link, .edit-profile-link{
+  padding-left: 7px;
+}
+
+.edit-profile, .edit-thumbnail{
+  input, textarea, select{
+    width: 100%;
+    display: block;
+  }
+  .submit{
+    margin-top: 10px;
+  }
+  textarea{
+    min-height: 250px;
+  }
+}
+
+.edit-thumbnail{
+  .icon-bug{
+    font-size: 150px;
+    text-align: center;
+  }
+  a{
+    display: block;
+    text-align: center;
+    width: 80%;
+    margin: 5px auto 5px auto;
+    padding: 10px;
+    border: 1px solid $light-gray;
+    @include border-radius(5px);
+    background: #ffffff;
+  }
+
+  /* Thumbnail editing */
+  .outer-wrapper{
+    z-index: 0;
+    height: 250px;
+    width: 250px;
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+    #containment-wrapper{
+      height: 250px;
+      width: 250px;
+      margin: 0 auto 0 auto;
+      padding: 0px;
+      overflow: hidden;
+      position: relative;
+      #frame{
+        text-align: center;
+        width: 250px;
+        height: 250px;
+        overflow: hidden;
+        border: 1px solid $dark-gray;
+        @include border-radius(5px);
+        @extend %bullseye-center;
+      }
+    }
+  }
+  .control-area{
+    width: 100%;
+    margin: 0 auto 0 auto;
+    position: relative;
+    z-index: 100;
+    text-align: center;
+    .btn, .fileinput-button{
+      display: inline-block;
+      margin: 0 auto 0 auto;
+    }
+    #rotate-submit{
+      display: none;
+    }
+    .progress{
+      height: 30px;
+    }
+    button, .fileinput-button{
+      vertical-align: middle; //~ Fixes a weird stacking issue with the edit thumbnail page where the buttons weren't aligned. - MC 5.28.2014
+    }
+  }
+  input[type="range"]{
+    margin: 0 auto 0 auto;
+    width: 200px;
+  }
+}
+
+.js-alt-email-help-popup, .js-corporate-email-help-popup{
+  color: $strong-blue;
+  cursor: pointer;
+  font-size: $medium;
+}
+.js-helper-text, .js-corporate-email-helper-text{
+  font-size: $small;
+  margin-top: 0px;
+  display: none;
+}
+#js-alt-email-help-modal{
+  .modal-dialogue{
+    position: relative;
+    p{
+      background: #ffffff;
+      padding: 30px;
+      @extend %bullseye-center;    
+    }
+  }
+}
+
+.read-less{
+  display: block;
+}

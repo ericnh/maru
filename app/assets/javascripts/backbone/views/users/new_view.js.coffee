@@ -1,5 +1,5 @@
 class Maru.Views.UsersNewView extends Backbone.View
- el: '#users'
+ el: '#main-content-area'
 
  template: JST["backbone/templates/users/new"]
 
@@ -22,14 +22,14 @@ class Maru.Views.UsersNewView extends Backbone.View
    points = $('#points').val()
    side = $('#side').val()
 
-   id = @collection.length + 1 # TODO add as some sort of global varriable which gets incremented here
+   Maru.count = Maru.count + 1
+
+   id = Maru.count
 
    model = new Maru.Models.User({id: id, name: name, points: points, side: side})
    @collection.add(model,
                    success: (user) => # Never get here because this is an add not a save
                        @model = user
                        debugger)
-   # this.remove()
-   # this.unbind()
-   # https://lostechies.com/derickbailey/2011/09/15/zombies-run-managing-page-transitions-in-backbone-apps/
-   window.location.hash = ""
+   this.undelegateEvents();
+   window.location.hash = "/index"
