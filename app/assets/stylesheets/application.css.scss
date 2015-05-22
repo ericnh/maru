@@ -117,7 +117,7 @@ h4{
   height: 100%;
 }
 
-#full-page-wrapper{
+/*#full-page-wrapper{
   border-right: 1px solid $medium-gray;
   border-left: 1px solid $medium-gray;
   &.hide-left-sidebar{ // Being added for when a new user logs in with a default password, is bounced to the Change Password page. We want them to have no other access. - MC 8.27.2014
@@ -136,7 +136,7 @@ h4{
       display: none !important;
     }
   }
-}
+}*/
 
 #top-container.container{
   padding: 0; //~ Overriding a bootstrap style that we don't want.
@@ -297,19 +297,19 @@ select{
 .sub-container.top-header{
   display: table; //~ Resolving the 1px display bug. - MC 6.3.2014
   width: 100%;
-  position: fixed;
+  /*position: fixed;*/
   top: 0;
   left: auto;
   transition:left $open-nav-menu-speed;
   z-index: 500;
-  background: $strong-blue url(image_path("evanta_bug_bg.png")) no-repeat right top;
+  /*background: $strong-blue url(image_path("evanta_bug_bg.png")) no-repeat right top;*/
   color: #ffffff;
   height: 50px;    
   &.green{ //~ This is applied dynamically with jquery. It is currently for the events and session areas.
-    background: $lime-green url(image_path("evanta_bug_bg.png")) no-repeat right top;
+    background: $lime-green no-repeat right top;
   }
   &.gray{
-    background: $dark-gray url(image_path("evanta_bug_bg.png")) no-repeat right top;
+    background: $dark-gray no-repeat right top;
   }
   .header-title{
     //~ This section is a font-size matrix. We can customize this further to be more or less specific, and there are duplicates that we can merge. The classes are assigned in Access.Views.Helpers.js.coffee. - MC 3.19.2014
@@ -1119,5 +1119,19 @@ a.back-button{
 .placeholder{
   color: $medium-gray;
 }
+
+.user-row{
+  td{
+    text-align: center;
+  }
+}
+
+th {
+  text-align: center;
+}
+
+.sidebar-container{
+      display: none;
+    }
 
 /* end universal styles */

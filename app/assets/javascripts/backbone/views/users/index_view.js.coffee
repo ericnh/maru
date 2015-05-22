@@ -5,9 +5,9 @@ class Maru.Views.UsersIndexView extends Backbone.View
   el: '#main-content-area'
 
   initialize: ->
-    # Maru.users.bind 'remove', @render()
     @render()
     @addAll()
+    # @listenTo(Maru.users, 'remove', @render())
 
   addAll: ->
     @collection.forEach(@addOne, @)
